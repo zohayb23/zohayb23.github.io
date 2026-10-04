@@ -1,0 +1,393 @@
+export const profile = {
+  name: "Zohayb Bhatti",
+  firstName: "Zohayb",
+  location: "Austin, Texas",
+  email: "zohayb23@gmail.com",
+  linkedin: "https://www.linkedin.com/in/zohayb-bhatti/",
+  github: "https://github.com/zohayb23",
+  tagline: "Engineer. Automator. Builder of AI Infrastructure.",
+  heroBlurb:
+    "Software engineer in Austin, TX focused on AI/ML infrastructure, CI/CD automation, Kubernetes, and distributed systems.",
+  // Words wrapped in ** are emphasized in the scroll-reveal paragraph.
+  about:
+    "I build the **infrastructure that helps AI ship faster.** At **IBM** I modernized CI/CD for the **Spyre AI accelerator** platform on IBM Power, cutting test runtime **6x** with **Kubernetes and Tekton.** At **Meta** I triaged defects for **AI-enabled wearables** with ~95% accuracy under 24-hour SLAs. At **Revanite** I built **compliance automation in Go** that reduced false positives by ~80%. Now I'm pursuing an **M.S. in Applied AI** and staying hands-on wherever tech creates opportunity.",
+};
+
+export const stats = [
+  { value: 6, suffix: "x", label: "Faster AI/ML Test Runtime" },
+  { value: 95, prefix: "~", suffix: "%", label: "Triage Classification Accuracy" },
+  { value: 80, prefix: "~", suffix: "%", label: "Fewer False Positives" },
+  { value: 9, label: "Parallel Tekton Pods" },
+  { value: 15, suffix: "+", label: "Production UI Pages Shipped" },
+  { value: 22, label: "Public GitHub Repos" },
+];
+
+export type JourneyProject = { title: string; bullets: string[] };
+
+export type JourneyItem = {
+  period: string;
+  badge?: string;
+  company: string;
+  role: string;
+  location: string;
+  logo?: string;
+  monogram?: string;
+  summary: string[];
+  projects: JourneyProject[];
+  tags: string[];
+};
+
+export const journey: JourneyItem[] = [
+  {
+    period: "May 2026 – Aug 2026",
+    badge: "6x faster AI/ML tests",
+    company: "IBM",
+    role: "Power Systems Developer Intern",
+    location: "Austin, TX",
+    logo: "/logos/ibm.svg",
+    summary: ["Spyre CI/CD Modernization", "Kubernetes & Tekton", "Hardware Test Automation"],
+    projects: [
+      {
+        title: "Spyre CI/CD Modernization",
+        bullets: [
+          "Architected Kubernetes-based CI/CD on bare-metal IBM Power hardware with Spyre AI accelerators, migrating persistent Jenkins agents to ephemeral pods for on-demand hardware utilization.",
+          "Engineered a 9-pod parallel Tekton pipeline to replace sequential Jenkins execution, achieving a 6x reduction in AI/ML test runtime and successfully validating the POC for broader CI/CD implementation across Spyre infrastructure.",
+        ],
+      },
+      {
+        title: "Bobbotics Hardware Test Automation Tool",
+        bullets: [
+          "Engineered an end-to-end hardware testing pipeline using Python, Playwright, Raspberry Pi, computer vision, Telnet/SSH, and REST APIs, automating a 45–90 minute manual workflow.",
+          "Automated ASMI test triggering, camera-based LED detection, hardware validation, and Jazz ETM reporting, producing machine-readable test evidence with minimal manual intervention.",
+        ],
+      },
+    ],
+    tags: ["Kubernetes", "Tekton", "Jenkins", "IBM Power", "Spyre", "Python", "Playwright", "Raspberry Pi", "Computer Vision"],
+  },
+  {
+    period: "Jan 2026 – May 2026",
+    badge: "~95% triage accuracy",
+    company: "Meta",
+    role: "Software Engineer",
+    location: "Austin, TX",
+    logo: "/logos/meta.svg",
+    summary: ["AI-Enabled Wearables", "Defect Triage Pipeline", "24-hour SLA"],
+    projects: [
+      {
+        title: "AI Wearables Defect Intake & Triage",
+        bullets: [
+          "Engineered and optimized a structured defect intake and triage pipeline for AI-enabled wearable devices, consistently maintaining ~95% triage classification accuracy while meeting strict 24-hour SLA targets.",
+          "Leveraged and evaluated AI-assisted deduplication tooling and contextual retrieval models to automate log analysis, surface relevant diagnostic context, and accelerate root-cause identification across complex pre-release environments.",
+          "Developed detailed technical diagnostics, including reproduction workflows, system log parsing, and environment state analysis, to isolate regressions, reduce duplicate reports, and streamline engineering fix cycles.",
+          "Collaborated cross-functionally with backend, QA, and hardware engineering teams to escalate high-impact system anomalies while authoring process flowcharts and technical SOPs to standardize triage logic.",
+        ],
+      },
+    ],
+    tags: ["AI Wearables", "Log Analysis", "Contextual Retrieval", "Root-Cause Analysis", "SOPs"],
+  },
+  {
+    period: "Jul 2025 – Jan 2026",
+    badge: "~80% fewer false positives",
+    company: "Revanite",
+    role: "Software Engineer",
+    location: "Austin, TX",
+    monogram: "R",
+    summary: ["Compliance Automation in Go", "OSPS Baseline · NIST 800-53 · SSDF", "Policy-as-Code"],
+    projects: [
+      {
+        title: "Continuous Compliance Platform",
+        bullets: [
+          "Built and scaled compliance automation pipelines in Go aligned with OSPS Baseline, NIST 800-53, and SSDF, enabling continuous compliance scanning across large GitHub repositories.",
+          "Implemented Gemara-compatible evaluation workflows and Privateer-based scanners, producing SARIF outputs for GitHub-native CI/CD pipelines and reducing false positives by approximately 80%.",
+          "Designed and delivered a compliance UI and transformer API using React and TypeScript, supporting policy management, control catalogs, and standards mapping across 15+ production pages.",
+          "Developed secure GitHub Actions–driven CI/CD workflows for automated security assessments, enabling scalable policy-as-code enforcement in cloud-native environments.",
+        ],
+      },
+    ],
+    tags: ["Go", "React", "TypeScript", "GitHub Actions", "SARIF", "Gemara", "Privateer", "NIST 800-53"],
+  },
+];
+
+export const education = [
+  {
+    school: "Amberton University",
+    location: "Garland, TX",
+    degree: "Master of Science in Applied AI",
+    date: "Expected May 2028",
+    monogram: "AU",
+    inProgress: true,
+  },
+  {
+    school: "The University of Texas at Austin",
+    location: "Austin, TX",
+    degree: "Advanced AI Certificate in AI/ML: Business Applications",
+    date: "December 2024",
+    monogram: "UT",
+  },
+  {
+    school: "St. Edward's University",
+    location: "Austin, TX",
+    degree: "Bachelor of Science in Computer Science",
+    date: "December 2023",
+    monogram: "SEU",
+  },
+];
+
+export const expertise = [
+  {
+    icon: "cpu",
+    title: "AI/ML Infrastructure",
+    body: "Built Kubernetes CI/CD on bare-metal IBM Power with Spyre AI accelerators, using ephemeral pods so expensive hardware is only used when it's needed.",
+  },
+  {
+    icon: "workflow",
+    title: "CI/CD & Pipeline Automation",
+    body: "Tekton, Jenkins, and GitHub Actions. Replaced sequential Jenkins runs with a 9-pod parallel pipeline that made AI/ML tests 6x faster.",
+  },
+  {
+    icon: "shield",
+    title: "Security & Compliance Automation",
+    body: "Policy-as-code with OSPS Baseline, NIST 800-53, and SSDF. Gemara workflows, Privateer scanners, and SARIF output that cut false positives by ~80%.",
+  },
+  {
+    icon: "circuit",
+    title: "Hardware Test Automation",
+    body: "Raspberry Pi, computer-vision LED detection, Playwright, Telnet/SSH, and REST APIs that turned a 45–90 minute manual workflow into one automated run.",
+  },
+  {
+    icon: "sparkles",
+    title: "Applied AI & LLM Apps",
+    body: "GPT-4, LangChain, RAG, NLP, and Sentence Transformers. Built PDF chatbots, resume embedding services, and AI-assisted log triage.",
+  },
+  {
+    icon: "layers",
+    title: "Full-Stack Engineering",
+    body: "React and TypeScript front ends, Go, FastAPI, and Flask services, and PostgreSQL, MongoDB, Redis, and Firebase, from 15+ page production UIs to APIs.",
+  },
+];
+
+export const featuredWork = [
+  {
+    category: "AI Infrastructure",
+    title: "Spyre CI/CD Modernization",
+    body: "Moved IBM's Spyre AI accelerator testing from persistent Jenkins agents to ephemeral Kubernetes pods running a 9-way parallel Tekton pipeline.",
+    pill: "IBM · 2026 — 6x faster AI/ML tests",
+  },
+  {
+    category: "Hardware Automation",
+    title: "Bobbotics Hardware Test Automation Tool",
+    body: "End-to-end Raspberry Pi and computer-vision pipeline that triggers ASMI tests, reads server LEDs by camera, and files Jazz ETM evidence on its own.",
+    pill: "IBM · 2026 — 45–90 min flow automated",
+  },
+  {
+    category: "Security & Compliance",
+    title: "Continuous Compliance as Code",
+    body: "Go pipelines aligned to OSPS Baseline, NIST 800-53, and SSDF, with Privateer scanners emitting SARIF into GitHub-native CI/CD.",
+    pill: "Revanite · 2025 — ~80% fewer false positives",
+  },
+];
+
+export type Project = {
+  name: string;
+  description: string;
+  tags: string[];
+  category: "AI & ML" | "Apps & Tools" | "Team & Coursework";
+  repo: string;
+};
+
+export const projects: Project[] = [
+  {
+    name: "Recruiter.Ai",
+    description:
+      "Resume embedding service that cleans resume text and generates embeddings with Sentence Transformers (all-MiniLM-L6-v2). Containerized with Docker and deployed to Kubernetes on AWS EKS through a GitHub Actions CI/CD pipeline.",
+    tags: ["Python", "Sentence Transformers", "Docker", "Kubernetes", "AWS EKS", "GitHub Actions"],
+    category: "AI & ML",
+    repo: "https://github.com/zohayb23/Recruiter.Ai",
+  },
+  {
+    name: "MultiPDF RAG Chatbot",
+    description:
+      "Streamlit web app that reads and processes multiple PDFs so you can ask questions about them through a conversational AI chatbot using retrieval-augmented generation.",
+    tags: ["Python", "RAG", "LangChain", "Streamlit", "LLMs"],
+    category: "AI & ML",
+    repo: "https://github.com/zohayb23/MultiPDFRagChatbot",
+  },
+  {
+    name: "ContactAutomation",
+    description:
+      "Sends personalized beat packs to artists through the Gmail and Google Drive APIs. Each pack has 3–5 random beats and a usage agreement, with 30-day duplicate prevention, per-artist pack numbering, a full CLI, and an optional dashboard and Discord bot.",
+    tags: ["Python", "Gmail API", "Google Drive API", "OAuth 2.0", "CLI"],
+    category: "Apps & Tools",
+    repo: "https://github.com/zohayb23/ContactAutomation",
+  },
+  {
+    name: "BlackJack in Go",
+    description:
+      "Command-line Blackjack built test-first in Go, with a clean internal package layout, dealer AI that hits on 16 and stands on 17, and close to 100% test coverage.",
+    tags: ["Go", "TDD", "CLI"],
+    category: "Apps & Tools",
+    repo: "https://github.com/zohayb23/BlackJackGo",
+  },
+  {
+    name: "Plant Seedling Classification",
+    description:
+      "Convolutional neural network that sorts plant seedlings into species, aimed at cutting the manual work of telling crops from weeds in agriculture.",
+    tags: ["Deep Learning", "CNN", "Computer Vision", "Jupyter"],
+    category: "AI & ML",
+    repo: "https://github.com/zohayb23/PlantSeedingClassification",
+  },
+  {
+    name: "Credit Card Churn Prediction",
+    description:
+      "Classification model for Thera Bank that predicts which customers will cancel their credit cards, so the bank can improve its services and keep them.",
+    tags: ["Machine Learning", "Classification", "Python"],
+    category: "AI & ML",
+    repo: "https://github.com/zohayb23/Credit-Card-Users-Churn-Prediction",
+  },
+  {
+    name: "AllLife Bank Loan Campaign",
+    description:
+      "Predicts whether a liability customer will buy a personal loan, finds the customer attributes that drive purchases, and identifies which segments to target.",
+    tags: ["Machine Learning", "Customer Segmentation", "Jupyter"],
+    category: "AI & ML",
+    repo: "https://github.com/zohayb23/AllLife-Bank-Personal-Loan-Campaign",
+  },
+  {
+    name: "FoodHub Data Analysis",
+    description: "Exploratory data analysis of a food-delivery platform's orders to find demand patterns and actionable business insights.",
+    tags: ["Data Analysis", "Python", "Jupyter"],
+    category: "AI & ML",
+    repo: "https://github.com/zohayb23/FoodHub-Data-Analysis",
+  },
+  {
+    name: "WeGo Autonomous Delivery",
+    description:
+      "Seven-person, seven-sprint semester project using transportation as a service to help patients and healthcare professionals. I rotated through Data Manager, Backend, QA, and Scrum Master roles, and we demoed to stakeholders.",
+    tags: ["Python", "Agile / Scrum", "SDLC", "Scrum Master"],
+    category: "Team & Coursework",
+    repo: "https://github.com/zohayb23/WeGoT21",
+  },
+  {
+    name: "GoFit iOS",
+    description:
+      "Fitness tracker built for a mobile programming course that tracks exercise, monitors nutrition, sets fitness goals, and reports progress.",
+    tags: ["Swift", "Storyboard", "iOS"],
+    category: "Team & Coursework",
+    repo: "https://github.com/zohayb23/GoFit-iOS-",
+  },
+];
+
+export const openSource = [
+  {
+    name: "Privateer",
+    description: "Plugin-based framework for validating the status of deployed resources.",
+    repo: "https://github.com/zohayb23/privateer",
+    lang: "Go",
+  },
+  {
+    name: "Privateer SDK",
+    description: "SDK that streamlines building Privateer plugins.",
+    repo: "https://github.com/zohayb23/privateer-sdk",
+    lang: "Go",
+  },
+  {
+    name: "pvtr-github-repo",
+    description: "Privateer plugin that scans the security hygiene of a GitHub repository.",
+    repo: "https://github.com/zohayb23/pvtr-github-repo",
+    lang: "Go",
+  },
+  {
+    name: "pvtr-github-repo-action",
+    description: "GitHub Action that runs OSPS security assessments in CI.",
+    repo: "https://github.com/zohayb23/pvtr-github-repo-action",
+    lang: "Actions",
+  },
+  {
+    name: "Gemara",
+    description: "Governance model for minimizing rework in compliance activities.",
+    repo: "https://github.com/zohayb23/gemara",
+    lang: "Spec",
+  },
+  {
+    name: "OpenSSF Security Baseline",
+    description: "Open Source Project Security (OSPS) Baseline controls from OpenSSF.",
+    repo: "https://github.com/zohayb23/security-baseline",
+    lang: "Standard",
+  },
+  {
+    name: "Controls Canvas",
+    description: "Interactive CLI for building an SCI Layer 2 control catalog from a menu of options.",
+    repo: "https://github.com/zohayb23/controls-canvas",
+    lang: "CLI",
+  },
+];
+
+export const skills: { group: string; items: { name: string; icon?: string }[] }[] = [
+  {
+    group: "Languages",
+    items: [
+      { name: "Go", icon: "go" },
+      { name: "Python", icon: "python" },
+      { name: "TypeScript", icon: "typescript" },
+      { name: "JavaScript", icon: "javascript" },
+      { name: "Bash / Shell", icon: "gnubash" },
+    ],
+  },
+  {
+    group: "Frameworks & Libraries",
+    items: [
+      { name: "FastAPI", icon: "fastapi" },
+      { name: "Flask", icon: "flask" },
+      { name: "React", icon: "react" },
+      { name: "Node.js", icon: "nodedotjs" },
+      { name: "Groovy", icon: "apachegroovy" },
+    ],
+  },
+  {
+    group: "AI / ML",
+    items: [{ name: "GPT-4" }, { name: "LangChain", icon: "langchain" }, { name: "NLP" }, { name: "RAG" }],
+  },
+  {
+    group: "Databases & Caching",
+    items: [
+      { name: "PostgreSQL", icon: "postgresql" },
+      { name: "SQL" },
+      { name: "MongoDB", icon: "mongodb" },
+      { name: "Redis", icon: "redis" },
+      { name: "Firebase", icon: "firebase" },
+    ],
+  },
+  {
+    group: "Cloud & DevOps",
+    items: [
+      { name: "Docker", icon: "docker" },
+      { name: "Kubernetes", icon: "kubernetes" },
+      { name: "Tekton", icon: "tekton" },
+      { name: "OpenShift", icon: "redhatopenshift" },
+      { name: "Jenkins", icon: "jenkins" },
+      { name: "GitHub Actions", icon: "githubactions" },
+      { name: "CI/CD Pipelines" },
+      { name: "JFrog Artifactory", icon: "jfrog" },
+    ],
+  },
+  {
+    group: "Tools & Platforms",
+    items: [
+      { name: "Git", icon: "git" },
+      { name: "GitHub", icon: "github" },
+      { name: "Jira", icon: "jira" },
+      { name: "Podman", icon: "podman" },
+      { name: "Aqua Security" },
+      { name: "GaraSign" },
+    ],
+  },
+];
+
+export const builtAt = [
+  { name: "IBM", logo: "/logos/ibm.svg" },
+  { name: "Meta", logo: "/logos/meta.svg" },
+  { name: "Revanite" },
+  { name: "UT Austin" },
+  { name: "St. Edward's" },
+  { name: "Amberton" },
+];
