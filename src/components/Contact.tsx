@@ -1,24 +1,27 @@
+"use client";
+
 import Image from "next/image";
-import { Download, Mail } from "lucide-react";
+import { ArrowUpRight, BadgeCheck, Download, Mail, MapPin } from "lucide-react";
+import { useState, type FormEvent } from "react";
 import { builtAt, profile } from "@/data/profile";
 import { GitHubIcon, LinkedInIcon } from "./icons";
 import { FadeIn } from "./motion";
 
 export function BuiltAt() {
   return (
-    <section className="bg-mist px-5 pt-24 sm:px-8 md:pt-28">
-      <div className="mx-auto max-w-5xl text-center">
-        <h2 className="text-[22px] font-medium tracking-tight">
-          Where I&apos;ve <span className="text-neutral-400">Built & Learned</span>
+    <section className="px-5 pb-8 sm:px-8">
+      <div className="mx-auto max-w-6xl text-center">
+        <h2 className="text-[22px] font-semibold">
+          Where I&apos;ve <span className="text-brand">Built & Learned</span>
         </h2>
         <FadeIn>
-          <ul className="mt-12 flex flex-wrap items-center justify-center gap-x-12 gap-y-8">
+          <ul className="mt-10 flex flex-wrap items-center justify-center gap-x-12 gap-y-8">
             {builtAt.map((org) => (
-              <li key={org.name} className="opacity-60 grayscale transition-opacity hover:opacity-100">
+              <li key={org.name} className="opacity-50 transition-opacity hover:opacity-100">
                 {org.logo ? (
                   <Image src={org.logo} alt={org.name} width={80} height={32} className="h-7 w-auto brightness-0" />
                 ) : (
-                  <span className="text-[20px] font-semibold tracking-tight text-neutral-800">{org.name}</span>
+                  <span className="text-[22px] font-bold tracking-tight text-ink">{org.name}</span>
                 )}
               </li>
             ))}
@@ -29,51 +32,159 @@ export function BuiltAt() {
   );
 }
 
-export function Contact({ hasResume }: { hasResume: boolean }) {
-  const links = [
-    { href: `mailto:${profile.email}`, label: profile.email, icon: Mail },
+const highlights = ["Open to full-time SWE roles", "Based in Austin, Texas", "M.S. Applied AI in progress"];
+
+export function Contact() {
+  const [email, setEmail] = useState("");
+
+  function onSubmit(e: FormEvent) {
+    e.preventDefault();
+    const subject = encodeURIComponent("Let's discuss a role or project");
+    const body = encodeURIComponent(`Hi ${profile.firstName},\n\nYou can reach me at ${email}.\n\n`);
+    window.location.href = `mailto:${profile.email}?subject=${subject}&body=${body}`;
+  }
+
+  return (
+    <section id="contact" className="px-5 py-24 sm:px-8 md:py-28">
+      <FadeIn className="mx-auto max-w-3xl text-center">
+        <h2 className="text-[40px] leading-tight font-semibold sm:text-[52px]">
+          Have an Awesome Project Idea? <span className="text-brand">Let&apos;s Discuss</span>
+        </h2>
+
+        <form
+          onSubmit={onSubmit}
+          className="mx-auto mt-10 flex max-w-2xl items-center gap-2 rounded-full border border-brand/30 bg-white p-2 shadow-[0_20px_50px_-30px_var(--color-brand-glow)]"
+        >
+          <span className="ml-1 grid size-11 shrink-0 place-items-center rounded-full bg-brand-tint text-brand">
+            <Mail className="size-5" />
+          </span>
+          <label htmlFor="contact-email" className="sr-only">
+            Your email address
+          </label>
+          <input
+            id="contact-email"
+            type="email"
+            required
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
+            placeholder="Enter Email Address"
+            className="min-w-0 flex-1 bg-transparent px-2 text-[16px] outline-none placeholder:text-muted"
+          />
+          <button
+            type="submit"
+            className="shrink-0 rounded-full bg-brand px-7 py-3.5 text-[16px] font-semibold text-white transition-transform hover:-translate-y-0.5 sm:px-10"
+          >
+            Send
+          </button>
+        </form>
+
+        <ul className="mt-8 flex flex-wrap justify-center gap-x-8 gap-y-3">
+          {highlights.map((item) => (
+            <li key={item} className="flex items-center gap-2 text-[15px] text-ink/80">
+              <BadgeCheck className="size-5 text-brand" />
+              {item}
+            </li>
+          ))}
+        </ul>
+      </FadeIn>
+    </section>
+  );
+}
+
+const footerNav = [
+  { href: "#top", label: "Home" },
+  { href: "#expertise", label: "Expertise" },
+  { href: "#journey", label: "Experience" },
+  { href: "#about", label: "About" },
+  { href: "#projects", label: "Projects" },
+  { href: "#open-source", label: "Open Source" },
+];
+
+export function Footer({ hasResume }: { hasResume: boolean }) {
+  const socials = [
     { href: profile.linkedin, label: "LinkedIn", icon: LinkedInIcon },
     { href: profile.github, label: "GitHub", icon: GitHubIcon },
-    ...(hasResume ? [{ href: "/resume.pdf", label: "Resume", icon: Download }] : []),
+    { href: `mailto:${profile.email}`, label: "Email", icon: Mail },
   ];
 
   return (
-    <section id="contact" className="bg-mist px-5 pt-28 pb-10 sm:px-8 md:pt-36">
-      <div className="mx-auto max-w-3xl text-center">
-        <FadeIn>
-          <h2 className="text-[34px] leading-tight font-semibold tracking-tight sm:text-[46px]">
-            <span className="text-neutral-400">Let&apos;s</span> Build <span className="text-neutral-400">Something</span>{" "}
-            <span className="text-accent">Extraordinary.</span>
-          </h2>
-          <p className="mx-auto mt-5 max-w-xl text-[15px] leading-relaxed text-neutral-600">
-            Open to full-time software engineering roles, collaborations, and conversations about AI infrastructure,
-            DevOps, and automation. Let&apos;s explore how we can create impact together.
-          </p>
-        </FadeIn>
+    <footer className="rounded-t-[48px] bg-ink-soft px-5 pt-14 pb-8 text-white sm:px-10">
+      <div className="mx-auto max-w-6xl">
+        <div className="flex flex-col items-start justify-between gap-6 border-b border-white/15 pb-10 md:flex-row md:items-center">
+          <p className="text-[36px] leading-tight font-semibold sm:text-[48px]">Let&apos;s Connect there</p>
+          <a
+            href={`mailto:${profile.email}`}
+            className="flex items-center gap-2 rounded-full bg-brand px-7 py-3.5 text-[18px] font-semibold transition-transform hover:-translate-y-0.5"
+          >
+            Hire me <ArrowUpRight className="size-5" />
+          </a>
+        </div>
 
-        <FadeIn delay={0.1}>
-          <div className="mt-10 flex flex-wrap items-center justify-center gap-3">
-            {links.map(({ href, label, icon: Icon }) => (
-              <a
-                key={label}
-                href={href}
-                target={href.startsWith("http") ? "_blank" : undefined}
-                rel="noreferrer"
-                download={href.endsWith(".pdf") || undefined}
-                className="flex items-center gap-2 rounded-xl bg-white px-5 py-3 text-[13px] font-medium text-neutral-800 shadow-[0_8px_24px_-12px_rgba(0,0,0,0.3)] transition-all hover:-translate-y-0.5 hover:text-accent"
-              >
-                <Icon className="size-4" />
-                {label}
-              </a>
-            ))}
+        <div className="grid gap-10 py-12 md:grid-cols-[1.4fr_1fr_1fr]">
+          <div>
+            <a href="#top" className="flex items-center gap-2.5">
+              <span className="grid size-10 place-items-center rounded-full bg-brand text-[14px] font-bold">ZB</span>
+              <span className="text-[22px] font-bold tracking-wide uppercase">{profile.firstName}</span>
+            </a>
+            <p className="mt-5 max-w-sm text-[15px] leading-relaxed text-white/70">{profile.heroBlurb}</p>
+            <div className="mt-6 flex gap-3">
+              {socials.map(({ href, label, icon: Icon }) => (
+                <a
+                  key={label}
+                  href={href}
+                  target={href.startsWith("http") ? "_blank" : undefined}
+                  rel="noreferrer"
+                  aria-label={label}
+                  className="grid size-11 place-items-center rounded-full bg-white/10 transition-colors hover:bg-brand"
+                >
+                  <Icon className="size-5" />
+                </a>
+              ))}
+            </div>
           </div>
-        </FadeIn>
-      </div>
 
-      <footer className="mx-auto mt-28 flex max-w-7xl flex-col items-center justify-between gap-2 border-t border-black/[0.06] pt-8 text-[12px] text-neutral-500 sm:flex-row sm:pr-16">
-        <p>© {new Date().getFullYear()} {profile.name}. All rights reserved.</p>
-        <p>{profile.location}</p>
-      </footer>
-    </section>
+          <div>
+            <h3 className="text-[18px] font-semibold text-brand-light">Navigation</h3>
+            <ul className="mt-5 grid grid-cols-2 gap-3 text-[15px] text-white/75 md:grid-cols-1">
+              {footerNav.map((link) => (
+                <li key={link.href}>
+                  <a href={link.href} className="transition-colors hover:text-brand-light">
+                    {link.label}
+                  </a>
+                </li>
+              ))}
+            </ul>
+          </div>
+
+          <div>
+            <h3 className="text-[18px] font-semibold text-brand-light">Contact</h3>
+            <ul className="mt-5 space-y-3 text-[15px] text-white/75">
+              <li>
+                <a href={`mailto:${profile.email}`} className="flex items-center gap-2 transition-colors hover:text-brand-light">
+                  <Mail className="size-4" /> {profile.email}
+                </a>
+              </li>
+              <li className="flex items-center gap-2">
+                <MapPin className="size-4" /> {profile.location}
+              </li>
+              {hasResume && (
+                <li>
+                  <a href="/resume.pdf" download className="flex items-center gap-2 transition-colors hover:text-brand-light">
+                    <Download className="size-4" /> Download resume
+                  </a>
+                </li>
+              )}
+            </ul>
+          </div>
+        </div>
+
+        <div className="flex flex-col justify-between gap-2 border-t border-white/15 pt-6 text-[13px] text-white/50 sm:flex-row">
+          <p>
+            © {new Date().getFullYear()} {profile.name}. All rights reserved.
+          </p>
+          <p>Built with Next.js · Deployed on GitHub Pages</p>
+        </div>
+      </div>
+    </footer>
   );
 }

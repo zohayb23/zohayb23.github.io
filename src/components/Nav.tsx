@@ -5,81 +5,113 @@ import { Menu, X } from "lucide-react";
 import { useEffect, useState } from "react";
 import { profile } from "@/data/profile";
 
-const links = [
-  { href: "#about", label: "About" },
-  { href: "#journey", label: "Journey" },
-  { href: "#expertise", label: "Expertise" },
-  { href: "#work", label: "Work" },
-  { href: "#projects", label: "Projects" },
-  { href: "#stack", label: "Stack" },
+const left = [
+  { id: "top", label: "Home" },
+  { id: "expertise", label: "Expertise" },
+  { id: "journey", label: "Resume" },
 ];
+const right = [
+  { id: "about", label: "About" },
+  { id: "projects", label: "Projects" },
+  { id: "contact", label: "Contact" },
+];
+const all = [...left, ...right];
 
-export function Nav() {
-  const [scrolled, setScrolled] = useState(false);
-  const [open, setOpen] = useState(false);
-
+function useActiveSection() {
+  const [active, setActive] = useState("top");
   useEffect(() => {
-    const onScroll = () => setScrolled(window.scrollY > 8);
-    onScroll();
-    window.addEventListener("scroll", onScroll, { passive: true });
-    return () => window.removeEventListener("scroll", onScroll);
+    const sections = all
+      .map((l) => document.getElementById(l.id))
+      .filter((el): el is HTMLElement => el !== null);
+    const observer = new IntersectionObserver(
+      (entries) => {
+        const visible = entries.filter((e) => e.isIntersecting).sort((a, b) => b.intersectionRatio - a.intersectionRatio);
+        if (visible[0]) setActive(visible[0].target.id);
+      },
+      { rootMargin: "-35% 0px -55% 0px", threshold: [0, 0.25, 0.5] },
+    );
+    sections.forEach((s) => observer.observe(s));
+    return () => observer.disconnect();
   }, []);
+  return active;
+}
 
+function NavLink({ id, label, active }: { id: string; label: string; active: boolean }) {
   return (
-    <header
-      className={`fixed inset-x-0 top-0 z-50 border-b transition-colors duration-300 ${
-        scrolled || open ? "border-black/10 bg-white/80 backdrop-blur-xl" : "border-transparent bg-white/0"
+    <a
+      href={`#${id}`}
+      className={`relative rounded-full px-6 py-3 text-[15px] transition-colors lg:px-8 ${
+        active ? "text-white" : "text-white/85 hover:text-white"
       }`}
     >
-      <nav className="mx-auto flex h-16 max-w-7xl items-center justify-between px-5 sm:px-8">
-        <a href="#top" className="text-[15px] font-medium tracking-tight">
-          {profile.name}
+      {active && (
+        <motion.span
+          layoutId="nav-pill"
+          className="absolute inset-0 rounded-full bg-brand"
+          transition={{ type: "spring", stiffness: 380, damping: 32 }}
+        />
+      )}
+      <span className="relative">{label}</span>
+    </a>
+  );
+}
+
+export function Nav() {
+  const active = useActiveSection();
+  const [open, setOpen] = useState(false);
+
+  return (
+    <header className="fixed inset-x-0 top-4 z-50 px-4">
+      <nav className="mx-auto flex max-w-6xl items-center justify-between rounded-full bg-ink p-2 shadow-[0_20px_40px_-20px_rgba(0,0,0,0.6)]">
+        <div className="hidden flex-1 items-center md:flex">
+          {left.map((l) => (
+            <NavLink key={l.id} {...l} active={active === l.id} />
+          ))}
+        </div>
+
+        <a href="#top" className="flex items-center gap-2 px-4 md:flex-col md:gap-0.5">
+          <span className="grid size-9 place-items-center rounded-full bg-brand text-[13px] font-bold text-white">
+            ZB
+          </span>
+          <span className="text-[14px] font-bold tracking-[0.18em] text-white uppercase md:text-[13px]">
+            {profile.firstName}
+          </span>
         </a>
 
-        <ul className="hidden items-center gap-7 md:flex">
-          {links.map((link) => (
-            <li key={link.href}>
-              <a href={link.href} className="text-[13px] text-neutral-700 transition-colors hover:text-accent">
-                {link.label}
-              </a>
-            </li>
+        <div className="hidden flex-1 items-center justify-end md:flex">
+          {right.map((l) => (
+            <NavLink key={l.id} {...l} active={active === l.id} />
           ))}
-        </ul>
-
-        <div className="flex items-center gap-2">
-          <a
-            href="#contact"
-            className="rounded-xl bg-accent px-5 py-2.5 text-[13px] font-medium text-white shadow-[0_6px_20px_-6px_rgba(37,99,235,0.6)] transition-all hover:-translate-y-0.5 hover:bg-accent-deep"
-          >
-            Connect
-          </a>
-          <button
-            type="button"
-            aria-label={open ? "Close menu" : "Open menu"}
-            onClick={() => setOpen((v) => !v)}
-            className="rounded-lg p-2 md:hidden"
-          >
-            {open ? <X className="size-5" /> : <Menu className="size-5" />}
-          </button>
         </div>
+
+        <button
+          type="button"
+          aria-label={open ? "Close menu" : "Open menu"}
+          onClick={() => setOpen((v) => !v)}
+          className="grid size-11 place-items-center rounded-full bg-brand text-white md:hidden"
+        >
+          {open ? <X className="size-5" /> : <Menu className="size-5" />}
+        </button>
       </nav>
 
       <AnimatePresence>
         {open && (
           <motion.ul
-            initial={{ height: 0, opacity: 0 }}
-            animate={{ height: "auto", opacity: 1 }}
-            exit={{ height: 0, opacity: 0 }}
-            className="overflow-hidden px-5 md:hidden"
+            initial={{ opacity: 0, y: -8 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: -8 }}
+            className="mx-auto mt-2 max-w-6xl overflow-hidden rounded-3xl bg-ink p-2 md:hidden"
           >
-            {links.map((link) => (
-              <li key={link.href}>
+            {all.map((l) => (
+              <li key={l.id}>
                 <a
-                  href={link.href}
+                  href={`#${l.id}`}
                   onClick={() => setOpen(false)}
-                  className="block border-t border-black/5 py-3 text-sm text-neutral-700"
+                  className={`block rounded-full px-5 py-3 text-[15px] ${
+                    active === l.id ? "bg-brand text-white" : "text-white/85"
+                  }`}
                 >
-                  {link.label}
+                  {l.label}
                 </a>
               </li>
             ))}

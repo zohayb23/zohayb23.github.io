@@ -1,8 +1,8 @@
 import { existsSync } from "node:fs";
 import { join } from "node:path";
-import { About } from "@/components/About";
+import { About, Marquee } from "@/components/About";
 import { BackToTop } from "@/components/BackToTop";
-import { BuiltAt, Contact } from "@/components/Contact";
+import { BuiltAt, Contact, Footer } from "@/components/Contact";
 import { Expertise } from "@/components/Expertise";
 import { FeaturedWork } from "@/components/FeaturedWork";
 import { Hero } from "@/components/Hero";
@@ -20,16 +20,18 @@ export default function Home() {
       <Nav />
       <main>
         <Hero hasResume={hasResume} />
-        <About />
-        <Journey />
         <Expertise />
+        <Journey />
+        <About />
+        <Marquee />
         <FeaturedWork />
         <Projects />
         <OpenSource />
         <Stack />
         <BuiltAt />
-        <Contact hasResume={hasResume} />
+        <Contact />
       </main>
+      <Footer hasResume={hasResume} />
       <BackToTop />
     </>
   );

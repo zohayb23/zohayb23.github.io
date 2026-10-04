@@ -2,161 +2,180 @@
 
 import Image from "next/image";
 import { AnimatePresence, motion } from "motion/react";
-import { ChevronDown, GraduationCap, MapPin } from "lucide-react";
+import { ChevronDown } from "lucide-react";
 import { useState } from "react";
 import { education, journey, type JourneyItem } from "@/data/profile";
-import { FadeIn, RevealText } from "./motion";
+import { FadeIn } from "./motion";
 
-function Logo({ item }: { item: Pick<JourneyItem, "logo" | "monogram" | "company"> }) {
-  if (item.logo) {
-    return (
-      <Image
-        src={item.logo}
-        alt={`${item.company} logo`}
-        width={96}
-        height={40}
-        className="h-8 w-auto opacity-80 brightness-0 invert"
-      />
-    );
-  }
+function Dot({ highlight }: { highlight?: boolean }) {
   return (
-    <span className="grid size-14 place-items-center rounded-2xl bg-gradient-to-b from-accent to-accent-deep text-lg font-semibold text-white shadow-inner">
-      {item.monogram}
+    <span
+      className={`relative z-10 grid size-7 shrink-0 place-items-center rounded-full border-2 border-dashed ${
+        highlight ? "border-brand" : "border-ink"
+      } bg-white`}
+    >
+      <span className={`size-3.5 rounded-full ${highlight ? "bg-brand" : "bg-ink"}`} />
     </span>
   );
 }
 
-function JourneyCard({ item, defaultOpen }: { item: JourneyItem; defaultOpen?: boolean }) {
-  const [open, setOpen] = useState(defaultOpen ?? false);
+function Row({
+  left,
+  right,
+  highlight,
+}: {
+  left: React.ReactNode;
+  right: React.ReactNode;
+  highlight?: boolean;
+}) {
+  return (
+    <div className="grid grid-cols-[28px_1fr] gap-x-5 md:grid-cols-[1fr_28px_1fr] md:gap-x-10">
+      <div className="col-start-2 md:col-start-1 md:text-right">{left}</div>
+      <div className="row-span-2 row-start-1 flex justify-center pt-1 md:col-start-2 md:row-span-1">
+        <Dot highlight={highlight} />
+      </div>
+      <div className="col-start-2 mt-2 md:col-start-3 md:mt-0">{right}</div>
+    </div>
+  );
+}
 
+function ExperienceDetails({ item, defaultOpen }: { item: JourneyItem; defaultOpen?: boolean }) {
+  const [open, setOpen] = useState(defaultOpen ?? false);
   return (
     <div>
-      <div className="mb-3 flex flex-wrap items-center gap-3 text-[11px] text-neutral-500">
-        <span>{item.period}</span>
-        {item.badge && (
-          <span className="flex items-center gap-1.5 text-neutral-200">
-            <span className="size-1.5 rounded-full bg-accent-bright shadow-[0_0_8px_rgba(96,165,250,0.8)]" />
-            {item.badge}
+      <h3 className="text-[26px] leading-tight font-semibold text-ink sm:text-[30px]">{item.role}</h3>
+      <p className="mt-2 text-[16px] text-muted">{item.summary.join(" · ")}</p>
+      {item.badge && (
+        <p className="mt-3 inline-flex items-center gap-2 rounded-full bg-brand-tint px-3 py-1 text-[13px] font-medium text-brand">
+          <span className="size-1.5 rounded-full bg-brand" />
+          {item.badge}
+        </p>
+      )}
+
+      <button
+        type="button"
+        onClick={() => setOpen((v) => !v)}
+        aria-expanded={open}
+        className="mt-4 flex items-center gap-1.5 text-[14px] font-semibold text-ink transition-colors hover:text-brand"
+      >
+        {open ? "Hide details" : "Show details"}
+        <ChevronDown className={`size-4 transition-transform ${open ? "rotate-180" : ""}`} />
+      </button>
+
+      <AnimatePresence initial={false}>
+        {open && (
+          <motion.div
+            initial={{ height: 0, opacity: 0 }}
+            animate={{ height: "auto", opacity: 1 }}
+            exit={{ height: 0, opacity: 0 }}
+            transition={{ duration: 0.35, ease: [0.22, 1, 0.36, 1] }}
+            className="overflow-hidden"
+          >
+            <div className="space-y-5 pt-4">
+              {item.projects.map((project) => (
+                <div key={project.title}>
+                  <h4 className="text-[15px] font-semibold text-ink">{project.title}</h4>
+                  <ul className="mt-2 space-y-2">
+                    {project.bullets.map((bullet) => (
+                      <li key={bullet} className="flex gap-2.5 text-[15px] leading-relaxed text-[#475467]">
+                        <span className="mt-2.5 size-1.5 shrink-0 rounded-full bg-brand" />
+                        {bullet}
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+              ))}
+              <div className="flex flex-wrap gap-1.5">
+                {item.tags.map((tag) => (
+                  <span key={tag} className="rounded-full border border-ink/10 px-3 py-1 text-[12px] text-[#475467]">
+                    {tag}
+                  </span>
+                ))}
+              </div>
+            </div>
+          </motion.div>
+        )}
+      </AnimatePresence>
+    </div>
+  );
+}
+
+function CompanyBlock({ item }: { item: JourneyItem }) {
+  return (
+    <div className="flex flex-col md:items-end">
+      <div className="flex items-center gap-3 md:flex-row-reverse">
+        {item.logo ? (
+          <Image src={item.logo} alt="" width={64} height={28} className="h-6 w-auto brightness-0" />
+        ) : (
+          <span className="grid size-8 place-items-center rounded-lg bg-ink text-[13px] font-bold text-white">
+            {item.monogram}
           </span>
         )}
+        <h3 className="text-[26px] leading-tight font-semibold text-ink sm:text-[30px]">{item.company}</h3>
       </div>
-
-      <div className="rounded-xl border border-white/[0.06] bg-card-dark transition-colors hover:border-accent-bright/30">
-        <button
-          type="button"
-          onClick={() => setOpen((v) => !v)}
-          aria-expanded={open}
-          className="flex w-full items-center gap-6 p-6 text-left"
-        >
-          <div className="hidden w-28 shrink-0 justify-center sm:flex">
-            <Logo item={item} />
-          </div>
-          <div className="min-w-0 flex-1">
-            <h3 className="text-[16px] font-medium text-white">{item.company}</h3>
-            <p className="mt-0.5 text-[12px] text-neutral-500">
-              {item.role} · {item.location}
-            </p>
-            <p className="mt-3 text-[13px] text-neutral-300">{item.summary.join(" • ")}</p>
-          </div>
-          <ChevronDown
-            className={`size-4 shrink-0 text-neutral-500 transition-transform duration-300 ${open ? "rotate-180" : ""}`}
-          />
-        </button>
-
-        <AnimatePresence initial={false}>
-          {open && (
-            <motion.div
-              initial={{ height: 0, opacity: 0 }}
-              animate={{ height: "auto", opacity: 1 }}
-              exit={{ height: 0, opacity: 0 }}
-              transition={{ duration: 0.35, ease: [0.22, 1, 0.36, 1] }}
-              className="overflow-hidden"
-            >
-              <div className="space-y-6 border-t border-white/[0.06] px-6 py-6 sm:pl-[10.5rem]">
-                {item.projects.map((project) => (
-                  <div key={project.title}>
-                    <h4 className="text-[13px] font-medium text-white">{project.title}</h4>
-                    <ul className="mt-2 space-y-2">
-                      {project.bullets.map((bullet) => (
-                        <li key={bullet} className="flex gap-2.5 text-[13px] leading-relaxed text-neutral-400">
-                          <span className="mt-2 size-1 shrink-0 rounded-full bg-accent-bright" />
-                          {bullet}
-                        </li>
-                      ))}
-                    </ul>
-                  </div>
-                ))}
-                <div className="flex flex-wrap gap-1.5">
-                  {item.tags.map((tag) => (
-                    <span
-                      key={tag}
-                      className="rounded-full border border-white/10 px-2.5 py-1 text-[11px] text-neutral-400"
-                    >
-                      {tag}
-                    </span>
-                  ))}
-                </div>
-              </div>
-            </motion.div>
-          )}
-        </AnimatePresence>
-      </div>
+      <p className="mt-2 text-[16px] text-muted">
+        {item.period} · {item.location}
+      </p>
     </div>
   );
 }
 
 export function Journey() {
   return (
-    <section id="journey" className="bg-night px-5 py-24 text-white sm:px-8 md:py-32">
-      <div className="mx-auto max-w-4xl">
-        <p className="text-[13px] text-neutral-400">The</p>
-        <h2 className="text-[22px] font-medium">Journey</h2>
-        <RevealText
-          tone="dark"
-          text="From **bare-metal AI accelerators** to **AI-enabled wearables** to **compliance-as-code**, I build the **automation and infrastructure** that let engineering teams **ship with confidence.**"
-          className="mt-10 text-[22px] leading-[1.45] tracking-tight sm:text-[26px]"
-        />
+    <section id="journey" className="bg-white px-5 py-24 sm:px-8 md:py-28">
+      <div className="mx-auto max-w-6xl">
+        <h2 className="text-center text-[40px] leading-tight font-semibold sm:text-[48px]">
+          My <span className="text-brand">Work Experience</span>
+        </h2>
 
-        <div className="mx-auto mt-16 max-w-3xl space-y-8">
-          {journey.map((item, i) => (
-            <FadeIn key={item.company} delay={i * 0.05}>
-              <JourneyCard item={item} defaultOpen={i === 0} />
-            </FadeIn>
-          ))}
+        <div className="relative mt-16">
+          <div className="absolute top-2 bottom-2 left-[13px] border-l-2 border-dashed border-ink/25 md:left-1/2 md:-translate-x-px" />
+          <div className="space-y-14">
+            {journey.map((item, i) => (
+              <FadeIn key={item.company} delay={i * 0.05}>
+                <Row
+                  highlight={i === 0}
+                  left={<CompanyBlock item={item} />}
+                  right={<ExperienceDetails item={item} defaultOpen={i === 0} />}
+                />
+              </FadeIn>
+            ))}
+          </div>
+        </div>
 
-          <FadeIn>
-            <p className="mb-3 text-[11px] text-neutral-500">Education</p>
-            <div className="divide-y divide-white/[0.06] rounded-xl border border-white/[0.06] bg-card-dark">
-              {education.map((edu) => (
-                <div key={edu.school} className="flex items-center gap-6 p-6">
-                  <div className="hidden w-28 shrink-0 justify-center sm:flex">
-                    <span className="grid size-14 place-items-center rounded-2xl border border-white/10 text-[13px] font-semibold tracking-wide text-neutral-300">
-                      {edu.monogram}
-                    </span>
-                  </div>
-                  <div className="min-w-0 flex-1">
-                    <div className="flex flex-wrap items-center gap-2">
-                      <h3 className="text-[15px] font-medium text-white">{edu.school}</h3>
+        <h2 className="mt-28 text-center text-[36px] leading-tight font-semibold sm:text-[42px]">
+          My <span className="text-brand">Education</span>
+        </h2>
+        <div className="relative mt-14">
+          <div className="absolute top-2 bottom-2 left-[13px] border-l-2 border-dashed border-ink/25 md:left-1/2 md:-translate-x-px" />
+          <div className="space-y-12">
+            {education.map((edu, i) => (
+              <FadeIn key={edu.school} delay={i * 0.05}>
+                <Row
+                  highlight={edu.inProgress}
+                  left={
+                    <div>
+                      <h3 className="text-[24px] leading-tight font-semibold">{edu.school}</h3>
+                      <p className="mt-2 text-[16px] text-muted">
+                        {edu.date} · {edu.location}
+                      </p>
+                    </div>
+                  }
+                  right={
+                    <div>
+                      <h4 className="text-[22px] leading-tight font-semibold">{edu.degree}</h4>
                       {edu.inProgress && (
-                        <span className="flex items-center gap-1.5 rounded-full bg-white/5 px-2 py-0.5 text-[10px] text-neutral-300">
-                          <span className="size-1.5 animate-pulse rounded-full bg-accent-bright" />
+                        <p className="mt-3 inline-flex items-center gap-2 rounded-full bg-brand-tint px-3 py-1 text-[13px] font-medium text-brand">
+                          <span className="size-1.5 animate-pulse rounded-full bg-brand" />
                           In progress
-                        </span>
+                        </p>
                       )}
                     </div>
-                    <p className="mt-1 flex items-center gap-1.5 text-[13px] text-neutral-300">
-                      <GraduationCap className="size-3.5 text-neutral-500" />
-                      {edu.degree}
-                    </p>
-                    <p className="mt-1 flex items-center gap-1.5 text-[12px] text-neutral-500">
-                      <MapPin className="size-3" />
-                      {edu.location} · {edu.date}
-                    </p>
-                  </div>
-                </div>
-              ))}
-            </div>
-          </FadeIn>
+                  }
+                />
+              </FadeIn>
+            ))}
+          </div>
         </div>
       </div>
     </section>

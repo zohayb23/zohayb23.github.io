@@ -3,46 +3,37 @@
 import { AnimatePresence, motion } from "motion/react";
 import { ArrowUpRight } from "lucide-react";
 import { useState } from "react";
-import { profile, projects, type Project } from "@/data/profile";
+import { profile, projects } from "@/data/profile";
 import { GitHubIcon } from "./icons";
 
-const filters = ["All", "AI & ML", "Apps & Tools", "Team & Coursework"] as const;
-type Filter = (typeof filters)[number];
+const filters = ["All", ...Array.from(new Set(projects.map((p) => p.category)))];
 
 export function Projects() {
-  const [filter, setFilter] = useState<Filter>("All");
-  const visible = filter === "All" ? projects : projects.filter((p: Project) => p.category === filter);
+  const [filter, setFilter] = useState("All");
+  const visible = filter === "All" ? projects : projects.filter((p) => p.category === filter);
 
   return (
-    <section id="projects" className="bg-mist px-5 py-24 sm:px-8 md:py-32">
+    <section aria-label="All projects" className="px-5 pt-10 pb-24 sm:px-8">
       <div className="mx-auto max-w-6xl">
-        <div className="flex flex-col gap-6 md:flex-row md:items-end md:justify-between">
-          <div>
-            <p className="text-[13px] text-neutral-500">Builds & Experiments</p>
-            <h2 className="mt-1 text-[28px] font-medium tracking-tight sm:text-[34px]">
-              Projects <span className="text-neutral-400">& Code</span>
-            </h2>
-          </div>
-          <div className="no-scrollbar flex gap-1 overflow-x-auto rounded-full bg-white p-1 shadow-sm">
-            {filters.map((f) => (
-              <button
-                key={f}
-                type="button"
-                onClick={() => setFilter(f)}
-                className={`relative shrink-0 rounded-full px-4 py-1.5 text-[12px] transition-colors ${
-                  filter === f ? "text-white" : "text-neutral-600 hover:text-black"
-                }`}
-              >
-                {filter === f && (
-                  <motion.span layoutId="project-filter" className="absolute inset-0 rounded-full bg-accent" />
-                )}
-                <span className="relative">{f}</span>
-              </button>
-            ))}
-          </div>
+        <div className="no-scrollbar mx-auto flex w-fit max-w-full gap-1 overflow-x-auto rounded-full bg-mist p-1.5">
+          {filters.map((f) => (
+            <button
+              key={f}
+              type="button"
+              onClick={() => setFilter(f)}
+              className={`relative shrink-0 rounded-full px-5 py-2.5 text-[15px] font-medium transition-colors ${
+                filter === f ? "text-white" : "text-ink/70 hover:text-ink"
+              }`}
+            >
+              {filter === f && (
+                <motion.span layoutId="project-filter" className="absolute inset-0 rounded-full bg-brand" />
+              )}
+              <span className="relative">{f}</span>
+            </button>
+          ))}
         </div>
 
-        <motion.div layout className="mt-12 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+        <motion.div layout className="mt-10 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
           <AnimatePresence mode="popLayout">
             {visible.map((project) => (
               <motion.a
@@ -55,19 +46,21 @@ export function Projects() {
                 animate={{ opacity: 1, scale: 1 }}
                 exit={{ opacity: 0, scale: 0.96 }}
                 transition={{ duration: 0.3 }}
-                className="group flex flex-col rounded-3xl bg-white p-6 shadow-[0_16px_40px_-22px_rgba(0,0,0,0.3)] ring-1 ring-transparent transition-shadow hover:shadow-[0_24px_50px_-20px_rgba(37,99,235,0.35)] hover:ring-accent/25"
+                className="group flex flex-col rounded-[28px] border border-ink/[0.08] bg-white p-7 transition-all hover:-translate-y-1 hover:border-brand/40 hover:shadow-[0_24px_50px_-24px_var(--color-brand-glow)]"
               >
                 <div className="flex items-start justify-between gap-4">
-                  <span className="rounded-full bg-accent-soft px-2.5 py-1 text-[10px] font-medium tracking-wide text-accent uppercase">
+                  <span className="rounded-full bg-brand-tint px-3 py-1 text-[12px] font-semibold text-brand">
                     {project.category}
                   </span>
-                  <ArrowUpRight className="size-4 text-neutral-400 transition-transform group-hover:-translate-y-0.5 group-hover:translate-x-0.5 group-hover:text-accent" />
+                  <span className="grid size-9 place-items-center rounded-full bg-mist transition-colors group-hover:bg-brand group-hover:text-white">
+                    <ArrowUpRight className="size-4" />
+                  </span>
                 </div>
-                <h3 className="mt-5 text-[19px] font-semibold tracking-tight">{project.name}</h3>
-                <p className="mt-2 flex-1 text-[13px] leading-relaxed text-neutral-600">{project.description}</p>
-                <div className="mt-5 flex flex-wrap gap-1.5">
+                <h3 className="mt-5 text-[22px] leading-tight font-semibold">{project.name}</h3>
+                <p className="mt-3 flex-1 text-[15px] leading-relaxed text-muted">{project.description}</p>
+                <div className="mt-6 flex flex-wrap gap-1.5">
                   {project.tags.map((tag) => (
-                    <span key={tag} className="rounded-md bg-neutral-100 px-2 py-0.5 text-[11px] text-neutral-600">
+                    <span key={tag} className="rounded-full bg-mist px-3 py-1 text-[12px] text-ink/70">
                       {tag}
                     </span>
                   ))}
@@ -82,9 +75,9 @@ export function Projects() {
             href={profile.github}
             target="_blank"
             rel="noreferrer"
-            className="flex items-center gap-2 rounded-xl bg-ink px-5 py-3 text-[13px] font-medium text-white transition-all hover:-translate-y-0.5 hover:bg-accent"
+            className="flex items-center gap-2 rounded-full bg-ink px-7 py-3.5 text-[16px] font-medium text-white transition-all hover:-translate-y-0.5 hover:bg-brand"
           >
-            <GitHubIcon className="size-4" />
+            <GitHubIcon className="size-5" />
             See everything on GitHub
           </a>
         </div>

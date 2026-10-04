@@ -1,40 +1,96 @@
-import { featuredWork } from "@/data/profile";
+import { ArrowUpRight } from "lucide-react";
+import { featuredWork, profile } from "@/data/profile";
 import { FadeIn } from "./motion";
+
+const podDurations = [62, 78, 55, 70, 84, 66, 74, 58, 80];
+
+function PipelineGraphic() {
+  return (
+    <div aria-hidden="true" className="mt-8 hidden gap-6 sm:grid sm:grid-cols-[1fr_auto]">
+      <div className="grid grid-cols-3 gap-2.5">
+        {podDurations.map((width, n) => (
+          <div key={n} className="rounded-2xl border border-white/10 bg-white/[0.05] p-3">
+            <div className="flex items-center justify-between font-mono text-[11px] text-white/60">
+              <span>tekton-pod-{n + 1}</span>
+              <span className="size-1.5 rounded-full bg-emerald-400" />
+            </div>
+            <div className="mt-2.5 h-1.5 rounded-full bg-white/10">
+              <div className="h-full rounded-full bg-brand-light" style={{ width: `${width}%` }} />
+            </div>
+          </div>
+        ))}
+      </div>
+      <div className="flex flex-col justify-center rounded-2xl border border-white/10 bg-white/[0.05] px-6 text-center">
+        <p className="text-[48px] leading-none font-bold">
+          6<span className="text-brand-light">x</span>
+        </p>
+        <p className="mt-2 text-[13px] text-white/60">faster test runtime</p>
+      </div>
+    </div>
+  );
+}
 
 export function FeaturedWork() {
   return (
-    <section id="work" className="bg-white px-5 py-24 sm:px-8 md:py-32">
-      <div className="mx-auto max-w-5xl">
-        <p className="text-center text-[13px] text-neutral-500">Bridging Hardware and Software</p>
-        <h2 className="mt-2 text-center text-[28px] font-medium tracking-tight sm:text-[34px]">
-          Featured <span className="text-neutral-400">Work</span>
-        </h2>
+    <section id="projects" className="px-5 pt-4 pb-10 sm:px-8">
+      <div className="mx-auto max-w-6xl">
+        <div className="flex flex-wrap items-end justify-between gap-6">
+          <h2 className="max-w-xl text-[40px] leading-tight font-semibold sm:text-[48px]">
+            Let&apos;s have a look at my <span className="text-brand">Portfolio</span>
+          </h2>
+          <a
+            href={`${profile.github}?tab=repositories`}
+            target="_blank"
+            rel="noreferrer"
+            className="rounded-full bg-brand px-7 py-3.5 text-[18px] font-semibold text-white transition-transform hover:-translate-y-0.5"
+          >
+            See All
+          </a>
+        </div>
 
-        <div className="mt-16 grid items-center gap-5 md:grid-cols-3">
-          {featuredWork.map((work, i) => {
-            const center = i === 1;
-            return (
-              <FadeIn key={work.title} delay={i * 0.1}>
-                <article
-                  className={`flex flex-col rounded-3xl p-6 text-white shadow-[0_30px_60px_-25px_rgba(0,0,0,0.6)] transition-transform duration-300 hover:-translate-y-1.5 ${
-                    center
-                      ? "bg-gradient-to-b from-accent to-accent-deep shadow-[0_30px_60px_-20px_rgba(37,99,235,0.6)] md:-translate-y-6 md:py-8 md:hover:-translate-y-8"
-                      : "bg-neutral-900"
-                  }`}
-                >
-                  <p className={`text-[11px] ${center ? "text-blue-100" : "text-neutral-400"}`}>{work.category}</p>
-                  <h3 className="mt-4 text-[24px] leading-[1.15] font-medium tracking-tight">{work.title}</h3>
-                  <p className={`mt-5 text-[13px] leading-relaxed ${center ? "text-blue-50/85" : "text-neutral-400"}`}>
+        <div className="mt-12 grid gap-6 lg:grid-cols-3">
+          {featuredWork.map((work, i) => (
+            <FadeIn key={work.title} delay={i * 0.08} className={i === 0 ? "lg:col-span-2 lg:row-span-2" : ""}>
+              <article
+                className={`group relative flex h-full min-h-[340px] flex-col justify-between overflow-hidden rounded-[36px] p-8 ${
+                  i === 0 ? "dark-texture text-white" : i === 1 ? "bg-brand-soft text-ink" : "bg-mist text-ink"
+                }`}
+              >
+                <div className="flex items-start justify-between gap-4">
+                  <span
+                    className={`rounded-full px-4 py-1.5 text-[13px] font-medium ${
+                      i === 0 ? "glass" : "bg-white/70"
+                    }`}
+                  >
+                    {work.category}
+                  </span>
+                  <span
+                    className={`grid size-12 shrink-0 place-items-center rounded-full transition-transform group-hover:rotate-45 ${
+                      i === 0 ? "bg-brand text-white" : "bg-ink text-white"
+                    }`}
+                  >
+                    <ArrowUpRight className="size-5" />
+                  </span>
+                </div>
+                {i === 0 && <PipelineGraphic />}
+                <div className="mt-10">
+                  <h3 className={`font-semibold tracking-tight ${i === 0 ? "text-[34px] sm:text-[42px]" : "text-[28px]"} leading-tight`}>
+                    {work.title}
+                  </h3>
+                  <p className={`mt-4 max-w-xl text-[16px] leading-relaxed ${i === 0 ? "text-white/75" : "text-ink/75"}`}>
                     {work.body}
                   </p>
-                  <p className="mt-6 flex items-center gap-2 self-start rounded-full bg-white/10 px-3 py-1.5 text-[11px] text-white/90">
-                    <span className={`size-1.5 shrink-0 rounded-full ${center ? "bg-white" : "bg-accent-bright"}`} />
+                  <p
+                    className={`mt-6 inline-flex rounded-full px-4 py-2 text-[13px] font-semibold ${
+                      i === 0 ? "bg-brand text-white" : "bg-ink text-white"
+                    }`}
+                  >
                     {work.pill}
                   </p>
-                </article>
-              </FadeIn>
-            );
-          })}
+                </div>
+              </article>
+            </FadeIn>
+          ))}
         </div>
       </div>
     </section>

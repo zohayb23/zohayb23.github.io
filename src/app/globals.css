@@ -1,41 +1,53 @@
 @import "tailwindcss";
 
 @theme inline {
-  --color-ink: #0b0b0c;
-  --color-paper: #ffffff;
-  --color-mist: #f3f3f5;
-  --color-night: #0c0c0d;
-  --color-card-dark: #161618;
-  --color-accent: #2563eb;
-  --color-accent-deep: #1d4ed8;
-  --color-accent-bright: #60a5fa;
-  --color-accent-soft: #eef4ff;
-  --font-sans: var(--font-geist-sans);
+  /* white on brand is 5:1; brand-light on ink is 7.7:1 (WCAG AA) */
+  --color-brand: #0f62fe;
+  --color-brand-deep: #0043ce;
+  --color-brand-light: #78a9ff;
+  --color-brand-soft: #d0e2ff;
+  --color-brand-tint: #edf5ff;
+  --color-brand-glow: rgb(15 98 254 / 0.5);
+  --color-ink: #171717;
+  --color-ink-soft: #272727;
+  --color-muted: #667085;
+  --color-mist: #f2f4f7;
+  --font-sans: var(--font-urbanist);
   --font-mono: var(--font-geist-mono);
 }
 
 html {
   scroll-behavior: smooth;
-  scroll-padding-top: 4.5rem;
+  scroll-padding-top: 6.5rem;
 }
 
 body {
-  background: var(--color-paper);
+  background: #fff;
   color: var(--color-ink);
 }
 
 ::selection {
-  background: var(--color-accent);
+  background: var(--color-brand);
   color: #fff;
 }
 
-.hero-glow {
-  background: radial-gradient(closest-side, rgba(37, 99, 235, 0.14), rgba(37, 99, 235, 0.05) 55%, transparent);
+.portrait-fade {
+  mask-image: linear-gradient(to bottom, #000 78%, transparent 100%);
+  -webkit-mask-image: linear-gradient(to bottom, #000 78%, transparent 100%);
 }
 
-.portrait-fade {
-  mask-image: linear-gradient(to bottom, #000 60%, transparent 98%);
-  -webkit-mask-image: linear-gradient(to bottom, #000 60%, transparent 98%);
+.glass {
+  background: rgba(255, 255, 255, 0.12);
+  border: 1px solid rgba(255, 255, 255, 0.55);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+}
+
+.dark-texture {
+  background-color: #171717;
+  background-image:
+    radial-gradient(120% 80% at 85% 0%, rgb(15 98 254 / 0.2), transparent 55%),
+    repeating-linear-gradient(115deg, rgba(255, 255, 255, 0.025) 0 2px, transparent 2px 70px);
 }
 
 .no-scrollbar::-webkit-scrollbar {
@@ -45,8 +57,21 @@ body {
   scrollbar-width: none;
 }
 
+@keyframes marquee {
+  to {
+    transform: translateX(-50%);
+  }
+}
+
+.animate-marquee {
+  animation: marquee 38s linear infinite;
+}
+
 @media (prefers-reduced-motion: reduce) {
   html {
     scroll-behavior: auto;
+  }
+  .animate-marquee {
+    animation: none;
   }
 }

@@ -5,7 +5,10 @@ export const profile = {
   email: "zohayb23@gmail.com",
   linkedin: "https://www.linkedin.com/in/zohayb-bhatti/",
   github: "https://github.com/zohayb23",
+  role: "Software Engineer",
+  focus: "AI Infrastructure",
   tagline: "Engineer. Automator. Builder of AI Infrastructure.",
+  heroQuote: "I build the CI/CD, Kubernetes, and automation that help AI ship faster.",
   heroBlurb:
     "Software engineer in Austin, TX focused on AI/ML infrastructure, CI/CD automation, Kubernetes, and distributed systems.",
   // Words wrapped in ** are emphasized in the scroll-reveal paragraph.
@@ -191,11 +194,19 @@ export type Project = {
   name: string;
   description: string;
   tags: string[];
-  category: "AI & ML" | "Apps & Tools" | "Team & Coursework";
+  category: "AI & ML" | "Fintech" | "Apps & Tools" | "Team & Coursework";
   repo: string;
 };
 
 export const projects: Project[] = [
+  {
+    name: "Options Strategy Analyzer",
+    description:
+      "Options trading toolkit that turns a ticker, a days-to-expiry window, and a max-loss budget into an iron condor with strikes, net credit, and max loss, checked against OptionStrat. It ranks cash-secured puts and covered calls by expiry, strike distance, and annual ROI, and reports a Run Rate (options P/L minus protective put cost) across weekly, monthly, and overall performance summaries.",
+    tags: ["Node.js", "Express", "GPT-4o mini", "Options Analytics", "Portfolio Reporting"],
+    category: "Fintech",
+    repo: "https://github.com/zohayb23/OptionsTrading",
+  },
   {
     name: "Recruiter.Ai",
     description:
