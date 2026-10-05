@@ -13,7 +13,7 @@ export const profile = {
     "Software engineer in Austin, TX focused on AI/ML infrastructure, CI/CD automation, Kubernetes, and distributed systems.",
   // Words wrapped in ** are emphasized in the scroll-reveal paragraph.
   about:
-    "I build the **infrastructure that helps AI ship faster.** At **IBM** I modernized CI/CD for the **Spyre AI accelerator** platform on IBM Power, cutting test runtime **6x** with **Kubernetes and Tekton.** At **Meta** I triaged defects for **AI-enabled wearables** with ~95% accuracy under 24-hour SLAs. At **Revanite** I built **compliance automation in Go** that reduced false positives by ~80%. Now I'm pursuing an **M.S. in Applied AI** and staying hands-on wherever tech creates opportunity.",
+    "I build the **infrastructure that helps AI ship faster.** At **IBM** I modernized CI/CD for the **Spyre AI accelerator** platform on IBM Power, cutting test runtime **6x** with **Kubernetes and Tekton.** At **Meta** I triaged defects for **AI-enabled wearables** with ~95% accuracy under 24-hour SLAs. At **Revanite** I built **compliance automation in Go** that reduced false positives by ~80%. At the fintech startup **Fintrady** I built **GARCH + LSTM** volatility forecasting and options analytics. Now I'm pursuing an **M.S. in Applied AI** and staying hands-on wherever tech creates opportunity.",
 };
 
 export const stats = [
@@ -32,7 +32,7 @@ export type JourneyItem = {
   badge?: string;
   company: string;
   role: string;
-  location: string;
+  location?: string;
   logo?: string;
   monogram?: string;
   summary: string[];
@@ -108,6 +108,33 @@ export const journey: JourneyItem[] = [
       },
     ],
     tags: ["Go", "React", "TypeScript", "GitHub Actions", "SARIF", "Gemara", "Privateer", "NIST 800-53"],
+  },
+  {
+    period: "2025",
+    badge: "Fintech startup",
+    company: "Fintrady",
+    role: "Software Engineer",
+    monogram: "F",
+    summary: ["Options Analytics", "GARCH + LSTM Volatility Forecasting", "Portfolio Reporting"],
+    projects: [
+      {
+        title: "Hybrid GARCH + LSTM Forecasting Engine",
+        bullets: [
+          "Built a PyTorch stock price and volatility forecasting engine that pairs GARCH volatility models with LSTM networks, with confidence and reliability scoring on every prediction.",
+          "Distilled the ~500K-parameter hybrid model into a ~50K-parameter model specialized for iron condors, trading a little accuracy for much faster training and lower-latency inference.",
+          "Wrote a backtesting and model-validation framework on yfinance market data, plus an options pricing optimizer and a trade execution agent driven by the forecasts.",
+        ],
+      },
+      {
+        title: "Options Strategy Analyzer & Reporting",
+        bullets: [
+          "Built an iron condor analyzer that turns a ticker, a days-to-expiry window, and a max-loss budget into strikes, net credit, and max loss, validated against OptionStrat.",
+          "Designed reporting tables that rank cash-secured puts and covered calls by expiry, strike distance, and annualized ROI, with the Annualized Return % calculation shown.",
+          "Added a Run Rate metric (options P/L minus protective put cost) to the detailed transaction view and to the weekly, monthly, and overall performance summaries.",
+        ],
+      },
+    ],
+    tags: ["Python", "PyTorch", "GARCH", "LSTM", "Backtesting", "Node.js", "Options Analytics"],
   },
 ];
 
@@ -195,7 +222,9 @@ export type Project = {
   description: string;
   tags: string[];
   category: "AI & ML" | "Fintech" | "Apps & Tools" | "Team & Coursework";
-  repo: string;
+  /** Omit for private repos; the card shows a "Private repo" label instead of linking. */
+  repo?: string;
+  context?: string;
 };
 
 export const projects: Project[] = [
@@ -206,6 +235,23 @@ export const projects: Project[] = [
     tags: ["Node.js", "Express", "GPT-4o mini", "Options Analytics", "Portfolio Reporting"],
     category: "Fintech",
     repo: "https://github.com/zohayb23/OptionsTrading",
+    context: "Fintrady",
+  },
+  {
+    name: "GARCH + LSTM Volatility Forecaster",
+    description:
+      "PyTorch forecasting engine that combines GARCH volatility models with LSTM networks to predict stock prices and volatility, with confidence scoring, a backtesting framework, an options pricing optimizer, and a trade execution agent. Includes a distilled ~50K-parameter model tuned for iron condors alongside the ~500K-parameter hybrid.",
+    tags: ["Python", "PyTorch", "GARCH", "LSTM", "Backtesting", "yfinance"],
+    category: "Fintech",
+    context: "Fintrady",
+  },
+  {
+    name: "IBM Intelligent Documentation Copilot",
+    description:
+      "Hackathon build for IBM's Bobathon 2026 (Integration Track): a context-aware assistant on IBM Bob that answers questions with your code and task in mind. It connects a Context7 MCP server for live semantic search over IBM docs, adds a custom IBM Docs Copilot mode, and ships a skill that flags deprecated IBM APIs in open files with migration snippets.",
+    tags: ["IBM Bob", "MCP", "AI Agents", "Context7", "Developer Tooling"],
+    category: "AI & ML",
+    context: "IBM Bobathon 2026",
   },
   {
     name: "Recruiter.Ai",
@@ -226,8 +272,8 @@ export const projects: Project[] = [
   {
     name: "ContactAutomation",
     description:
-      "Sends personalized beat packs to artists through the Gmail and Google Drive APIs. Each pack has 3–5 random beats and a usage agreement, with 30-day duplicate prevention, per-artist pack numbering, a full CLI, and an optional dashboard and Discord bot.",
-    tags: ["Python", "Gmail API", "Google Drive API", "OAuth 2.0", "CLI"],
+      "Sends personalized beat packs to artists through the Gmail and Google Drive APIs. Each pack has 3–5 random beats and a usage agreement, with 30-day duplicate prevention, per-artist pack numbering, a full CLI, and an optional dashboard and Discord bot. A companion pipeline sorts the beat vault by genre on Google Drive and prepares scheduled uploads, titles, and tags for genre-specific YouTube channels.",
+    tags: ["Python", "Gmail API", "Google Drive API", "YouTube Data API", "OAuth 2.0", "CLI"],
     category: "Apps & Tools",
     repo: "https://github.com/zohayb23/ContactAutomation",
   },
@@ -398,6 +444,7 @@ export const builtAt = [
   { name: "IBM", logo: "/logos/ibm.svg" },
   { name: "Meta", logo: "/logos/meta.svg" },
   { name: "Revanite" },
+  { name: "Fintrady" },
   { name: "UT Austin" },
   { name: "St. Edward's" },
   { name: "Amberton" },

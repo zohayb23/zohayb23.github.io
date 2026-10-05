@@ -114,7 +114,7 @@ function CompanyBlock({ item }: { item: JourneyItem }) {
         <h3 className="text-[26px] leading-tight font-semibold text-ink sm:text-[30px]">{item.company}</h3>
       </div>
       <p className="mt-2 text-[16px] text-muted">
-        {item.period} · {item.location}
+        {[item.period, item.location].filter(Boolean).join(" · ")}
       </p>
     </div>
   );

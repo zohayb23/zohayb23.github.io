@@ -64,7 +64,7 @@ export function Hero({ hasResume }: { hasResume: boolean }) {
           </p>
           <p className="mt-1 text-[17px] text-[#344054]">Faster AI/ML tests at IBM</p>
           <p className="mt-6 text-[36px] leading-none font-bold">
-            3<span className="text-brand">+</span>
+            4
           </p>
           <p className="mt-1 text-[17px] text-[#344054]">Engineering roles</p>
         </motion.div>
