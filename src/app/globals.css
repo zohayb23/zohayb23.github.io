@@ -26,6 +26,17 @@ body {
   color: var(--color-ink);
 }
 
+:focus-visible {
+  outline: 3px solid var(--color-brand);
+  outline-offset: 3px;
+}
+
+.dark-texture :focus-visible,
+footer :focus-visible,
+nav :focus-visible {
+  outline-color: var(--color-brand-light);
+}
+
 ::selection {
   background: var(--color-brand);
   color: #fff;

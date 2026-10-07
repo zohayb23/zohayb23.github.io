@@ -1,6 +1,14 @@
 "use client";
 
-import { animate, motion, useInView, useScroll, useTransform, type MotionValue } from "motion/react";
+import {
+  animate,
+  motion,
+  useInView,
+  useReducedMotion,
+  useScroll,
+  useTransform,
+  type MotionValue,
+} from "motion/react";
 import { useEffect, useRef, useState, type ReactNode } from "react";
 
 export function FadeIn({
@@ -51,11 +59,12 @@ function Word({
   range: [number, number];
   tone: "light" | "dark";
 }) {
-  const opacity = useTransform(progress, range, [0.18, 1]);
+  const reduceMotion = useReducedMotion();
+  const opacity = useTransform(progress, range, [0.25, 1]);
   const strongClass = tone === "light" ? "text-ink font-medium" : "text-white font-medium";
-  const softClass = tone === "light" ? "text-neutral-500" : "text-neutral-400";
+  const softClass = tone === "light" ? "text-[#475467]" : "text-neutral-300";
   return (
-    <motion.span style={{ opacity }} className={token.strong ? strongClass : softClass}>
+    <motion.span style={reduceMotion ? undefined : { opacity }} className={token.strong ? strongClass : softClass}>
       {token.word}{" "}
     </motion.span>
   );

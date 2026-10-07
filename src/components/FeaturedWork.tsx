@@ -1,3 +1,4 @@
+import Link from "next/link";
 import { ArrowUpRight } from "lucide-react";
 import { featuredWork, profile } from "@/data/profile";
 import { FadeIn } from "./motion";
@@ -51,8 +52,9 @@ export function FeaturedWork() {
         <div className="mt-12 grid gap-6 lg:grid-cols-3">
           {featuredWork.map((work, i) => (
             <FadeIn key={work.title} delay={i * 0.08} className={i === 0 ? "lg:col-span-2 lg:row-span-2" : ""}>
-              <article
-                className={`group relative flex h-full min-h-[340px] flex-col justify-between overflow-hidden rounded-[36px] p-8 ${
+              <Link
+                href={`/work/${work.slug}`}
+                className={`group relative flex h-full min-h-[340px] flex-col justify-between overflow-hidden rounded-[36px] p-8 transition-transform hover:-translate-y-1 ${
                   i === 0 ? "dark-texture text-white" : i === 1 ? "bg-brand-soft text-ink" : "bg-mist text-ink"
                 }`}
               >
@@ -80,15 +82,24 @@ export function FeaturedWork() {
                   <p className={`mt-4 max-w-xl text-[16px] leading-relaxed ${i === 0 ? "text-white/75" : "text-ink/75"}`}>
                     {work.body}
                   </p>
-                  <p
-                    className={`mt-6 inline-flex rounded-full px-4 py-2 text-[13px] font-semibold ${
-                      i === 0 ? "bg-brand text-white" : "bg-ink text-white"
-                    }`}
-                  >
-                    {work.pill}
-                  </p>
+                  <div className="mt-6 flex flex-wrap items-center gap-x-5 gap-y-3">
+                    <p
+                      className={`inline-flex rounded-full px-4 py-2 text-[13px] font-semibold ${
+                        i === 0 ? "bg-brand text-white" : "bg-ink text-white"
+                      }`}
+                    >
+                      {work.pill}
+                    </p>
+                    <span
+                      className={`text-[14px] font-semibold underline-offset-4 group-hover:underline ${
+                        i === 0 ? "text-brand-light" : "text-brand-deep"
+                      }`}
+                    >
+                      Read case study →
+                    </span>
+                  </div>
                 </div>
-              </article>
+              </Link>
             </FadeIn>
           ))}
         </div>

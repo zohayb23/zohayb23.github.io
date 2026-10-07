@@ -19,6 +19,20 @@ export function Hero({ hasResume }: { hasResume: boolean }) {
   return (
     <section id="top" className="relative overflow-hidden bg-white pt-32 md:pt-36">
       <div className="relative mx-auto max-w-6xl px-5 text-center">
+        <motion.a
+          href="#contact"
+          initial={{ opacity: 0, y: 12 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.6, ease }}
+          className="mx-auto mb-5 flex w-fit items-center gap-2 rounded-full border border-emerald-600/20 bg-emerald-50 px-4 py-1.5 text-[14px] font-medium text-emerald-800 transition-colors hover:bg-emerald-100"
+        >
+          <span className="relative flex size-2">
+            <span className="absolute inline-flex size-full animate-ping rounded-full bg-emerald-500 opacity-60 motion-reduce:animate-none" />
+            <span className="relative inline-flex size-2 rounded-full bg-emerald-500" />
+          </span>
+          {profile.availability}
+        </motion.a>
+
         <motion.div
           initial={{ opacity: 0, y: 16 }}
           animate={{ opacity: 1, y: 0 }}
@@ -30,8 +44,8 @@ export function Hero({ hasResume }: { hasResume: boolean }) {
         </motion.div>
 
         <motion.h1
-          initial={{ opacity: 0, y: 28 }}
-          animate={{ opacity: 1, y: 0 }}
+          initial={{ y: 28 }}
+          animate={{ y: 0 }}
           transition={{ duration: 0.9, delay: 0.1, ease }}
           className="relative mx-auto mt-3 max-w-4xl text-[46px] leading-[1.05] font-semibold tracking-tight sm:text-[64px] lg:text-[84px]"
         >
@@ -78,17 +92,17 @@ export function Hero({ hasResume }: { hasResume: boolean }) {
         />
 
         <motion.div
-          initial={{ opacity: 0, y: 40 }}
-          animate={{ opacity: 1, y: 0 }}
+          initial={{ y: 40 }}
+          animate={{ y: 0 }}
           transition={{ duration: 1.1, delay: 0.25, ease }}
           className="absolute inset-x-0 bottom-0 flex h-full justify-center"
         >
           <Image
-            src="/headshot.png"
+            src="/headshot.webp"
             alt={`Portrait of ${profile.name}`}
             width={682}
             height={730}
-            priority
+            preload
             className="portrait-fade h-full w-auto object-contain object-bottom"
           />
         </motion.div>

@@ -11,7 +11,7 @@ export function About() {
             <div className="absolute inset-x-0 bottom-0 aspect-square rounded-full bg-brand" />
             <div className="absolute inset-x-6 bottom-6 aspect-square rounded-full border-2 border-dashed border-white/50" />
             <Image
-              src="/headshot.png"
+              src="/headshot.webp"
               alt={`${profile.name} in a suit`}
               width={682}
               height={730}

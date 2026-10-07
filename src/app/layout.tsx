@@ -1,6 +1,8 @@
 import type { Metadata } from "next";
 import { Geist_Mono, Urbanist } from "next/font/google";
+import Script from "next/script";
 import { profile } from "@/data/profile";
+import { siteUrl } from "@/lib/site";
 import "./globals.css";
 
 const urbanist = Urbanist({
@@ -14,13 +16,7 @@ const geistMono = Geist_Mono({
 });
 
 const description =
-  "Software engineer in Austin, TX building AI/ML infrastructure, CI/CD automation, Kubernetes platforms, and security compliance tooling. Previously at IBM, Meta, and Revanite.";
-
-const siteUrl =
-  process.env.NEXT_PUBLIC_SITE_URL ??
-  (process.env.VERCEL_PROJECT_PRODUCTION_URL
-    ? `https://${process.env.VERCEL_PROJECT_PRODUCTION_URL}`
-    : "http://localhost:3000");
+  "Software engineer in Austin, TX building AI/ML infrastructure, CI/CD automation, Kubernetes platforms, and security compliance tooling. Previously at IBM, Meta, Revanite, and Fintrady.";
 
 export const metadata: Metadata = {
   metadataBase: new URL(siteUrl),
@@ -50,10 +46,27 @@ export const metadata: Metadata = {
   },
 };
 
+const goatcounterCode = process.env.NEXT_PUBLIC_GOATCOUNTER_CODE;
+
 export default function RootLayout({ children }: LayoutProps<"/">) {
   return (
     <html lang="en" className={`${urbanist.variable} ${geistMono.variable} antialiased`}>
-      <body className="min-h-full font-sans">{children}</body>
+      <body className="min-h-full font-sans">
+        <a
+          href="#main"
+          className="fixed top-3 left-3 z-[100] -translate-y-24 rounded-full bg-brand px-5 py-3 font-semibold text-white focus:translate-y-0"
+        >
+          Skip to content
+        </a>
+        {children}
+        {goatcounterCode && (
+          <Script
+            data-goatcounter={`https://${goatcounterCode}.goatcounter.com/count`}
+            src="https://gc.zgo.at/count.js"
+            strategy="lazyOnload"
+          />
+        )}
+      </body>
     </html>
   );
 }

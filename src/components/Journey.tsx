@@ -2,9 +2,9 @@
 
 import Image from "next/image";
 import { AnimatePresence, motion } from "motion/react";
-import { ChevronDown } from "lucide-react";
+import { Award, ChevronDown } from "lucide-react";
 import { useState } from "react";
-import { education, journey, type JourneyItem } from "@/data/profile";
+import { certifications, education, journey, type JourneyItem } from "@/data/profile";
 import { FadeIn } from "./motion";
 
 function Dot({ highlight }: { highlight?: boolean }) {
@@ -177,6 +177,47 @@ export function Journey() {
             ))}
           </div>
         </div>
+
+        {certifications.length > 0 && (
+          <div className="mt-24">
+            <h2 className="text-center text-[32px] leading-tight font-semibold sm:text-[38px]">
+              Certifications <span className="text-brand">& Awards</span>
+            </h2>
+            <ul className="mx-auto mt-10 grid max-w-4xl gap-4 sm:grid-cols-2">
+              {certifications.map((cert) => {
+                const body = (
+                  <>
+                    <span className="grid size-11 shrink-0 place-items-center rounded-full bg-brand text-white">
+                      <Award className="size-5" />
+                    </span>
+                    <span className="min-w-0">
+                      <span className="block text-[17px] leading-snug font-semibold">{cert.name}</span>
+                      <span className="mt-1 block text-[14px] text-muted">
+                        {cert.issuer} · {cert.date}
+                      </span>
+                    </span>
+                  </>
+                );
+                return (
+                  <li key={cert.name}>
+                    {cert.url ? (
+                      <a
+                        href={cert.url}
+                        target="_blank"
+                        rel="noreferrer"
+                        className="flex h-full items-center gap-4 rounded-[24px] bg-mist p-5 transition-colors hover:bg-brand-tint"
+                      >
+                        {body}
+                      </a>
+                    ) : (
+                      <div className="flex h-full items-center gap-4 rounded-[24px] bg-mist p-5">{body}</div>
+                    )}
+                  </li>
+                );
+              })}
+            </ul>
+          </div>
+        )}
       </div>
     </section>
   );

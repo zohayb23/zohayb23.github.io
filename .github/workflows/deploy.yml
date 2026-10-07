@@ -27,6 +27,8 @@ jobs:
       - run: npm run build
         env:
           NEXT_PUBLIC_SITE_URL: https://zohayb23.github.io
+          NEXT_PUBLIC_FORMSPREE_ID: ${{ vars.FORMSPREE_ID }}
+          NEXT_PUBLIC_GOATCOUNTER_CODE: ${{ vars.GOATCOUNTER_CODE }}
       - run: touch out/.nojekyll
       - uses: actions/upload-pages-artifact@v3
         with:
