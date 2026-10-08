@@ -114,7 +114,7 @@ export const journey: JourneyItem[] = [
     period: "2025",
     badge: "Fintech startup",
     company: "Fintrady",
-    role: "Software Engineer",
+    role: "AI Systems Engineer",
     monogram: "F",
     summary: ["Options Analytics", "GARCH + LSTM Volatility Forecasting", "Portfolio Reporting"],
     projects: [
