@@ -7,16 +7,20 @@ export function About() {
     <section id="about" className="px-3 sm:px-5">
       <div className="mx-auto max-w-7xl rounded-[48px] bg-mist px-5 py-20 sm:px-10 md:py-24">
         <div className="mx-auto grid max-w-6xl items-center gap-14 lg:grid-cols-[0.9fr_1.1fr]">
-          <FadeIn className="relative mx-auto w-full max-w-[460px]">
-            <div className="absolute inset-x-0 bottom-0 aspect-square rounded-full bg-brand" />
-            <div className="absolute inset-x-6 bottom-6 aspect-square rounded-full border-2 border-dashed border-white/50" />
-            <Image
-              src="/headshot.webp"
-              alt={`${profile.name} in a suit`}
-              width={682}
-              height={730}
-              className="portrait-fade relative mx-auto h-auto w-[88%]"
-            />
+          <FadeIn className="relative mx-auto mt-10 w-full max-w-[420px] lg:mt-0">
+            <div className="relative aspect-square">
+              <div className="absolute inset-0 rounded-full bg-gradient-to-b from-brand-light to-brand" />
+              <div className="absolute inset-5 rounded-full border-2 border-dashed border-white/40" />
+              <div className="absolute inset-x-0 bottom-0 h-[112%] overflow-hidden rounded-b-full">
+                <Image
+                  src="/headshot.webp"
+                  alt={`${profile.name} in a suit`}
+                  width={682}
+                  height={730}
+                  className="absolute bottom-0 left-0 h-auto w-full"
+                />
+              </div>
+            </div>
           </FadeIn>
 
           <div>
