@@ -23,7 +23,7 @@ export const stats = [
   { value: 80, prefix: "~", suffix: "%", label: "Fewer False Positives" },
   { value: 9, label: "Parallel Tekton Pods" },
   { value: 15, suffix: "+", label: "Production UI Pages Shipped" },
-  { value: 22, label: "Public GitHub Repos" },
+  { value: 20, suffix: "+", label: "Public GitHub Repos" },
 ];
 
 export type JourneyProject = { title: string; bullets: string[] };
