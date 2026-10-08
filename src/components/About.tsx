@@ -14,10 +14,10 @@ export function About() {
               <div className="absolute inset-x-0 bottom-0 h-[112%] overflow-hidden rounded-b-full">
                 <Image
                   src="/headshot.webp"
-                  alt={`${profile.name} in a suit`}
-                  width={682}
-                  height={730}
-                  className="absolute bottom-0 left-0 h-auto w-full"
+                  alt={`${profile.name} in a white shirt`}
+                  width={760}
+                  height={920}
+                  className="absolute bottom-0 left-1/2 h-auto w-[90%] max-w-none -translate-x-1/2"
                 />
               </div>
             </div>

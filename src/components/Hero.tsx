@@ -88,20 +88,20 @@ export function Hero({ hasResume }: { hasResume: boolean }) {
           animate={{ scaleY: 1, opacity: 1 }}
           transition={{ duration: 1, delay: 0.15, ease }}
           style={{ originY: 1 }}
-          className="absolute bottom-0 left-1/2 aspect-[2/1] w-[min(92vw,640px)] -translate-x-1/2 rounded-t-full bg-gradient-to-t from-brand-deep via-brand to-brand-light"
+          className="absolute bottom-0 left-1/2 aspect-[2/1] w-[min(124vw,760px)] -translate-x-1/2 rounded-t-full bg-gradient-to-t from-brand-deep via-brand to-brand-light"
         />
 
         <motion.div
           initial={{ y: 40 }}
           animate={{ y: 0 }}
           transition={{ duration: 1.1, delay: 0.25, ease }}
-          className="absolute inset-x-0 bottom-0 flex h-full justify-center"
+          className="absolute inset-x-0 bottom-0 flex h-full justify-center drop-shadow-[0_12px_28px_rgba(15,23,42,0.22)]"
         >
           <Image
             src="/headshot.webp"
             alt={`Portrait of ${profile.name}`}
-            width={682}
-            height={730}
+            width={760}
+            height={920}
             preload
             className="portrait-fade h-full w-auto object-contain object-bottom"
           />
