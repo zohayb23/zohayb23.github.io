@@ -16,7 +16,7 @@ export function Testimonials() {
             <FadeIn key={t.name} delay={(i % 3) * 0.08}>
               <figure className="flex h-full flex-col rounded-[32px] bg-mist p-8">
                 <Quote className="size-8 fill-brand text-brand" aria-hidden="true" />
-                <blockquote className="mt-5 flex-1 text-[17px] leading-relaxed text-[#344054]">{t.quote}</blockquote>
+                <blockquote className="mt-5 flex-1 text-[17px] leading-relaxed text-body">{t.quote}</blockquote>
                 <figcaption className="mt-6 border-t border-ink/10 pt-5">
                   <p className="text-[17px] font-semibold">{t.name}</p>
                   <p className="text-[14px] text-muted">

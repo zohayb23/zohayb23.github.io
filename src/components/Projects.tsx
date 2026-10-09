@@ -16,7 +16,7 @@ const cardMotion = {
   transition: { duration: 0.3 },
 } as const;
 
-const cardClass = "group flex flex-col rounded-[28px] border border-ink/[0.08] bg-white p-7 transition-all";
+const cardClass = "group flex flex-col rounded-[28px] border border-ink/[0.08] bg-surface p-7 transition-all";
 
 function CardBody({ project }: { project: Project }) {
   return (
@@ -102,7 +102,7 @@ export function Projects() {
             href={profile.github}
             target="_blank"
             rel="noreferrer"
-            className="flex items-center gap-2 rounded-full bg-ink px-7 py-3.5 text-[16px] font-medium text-white transition-all hover:-translate-y-0.5 hover:bg-brand"
+            className="flex items-center gap-2 rounded-full bg-ink px-7 py-3.5 text-[16px] font-medium text-page transition-all hover:-translate-y-0.5 hover:bg-brand hover:text-white"
           >
             <GitHubIcon className="size-5" />
             See everything on GitHub

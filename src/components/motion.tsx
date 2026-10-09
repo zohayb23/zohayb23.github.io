@@ -62,7 +62,7 @@ function Word({
   const reduceMotion = useReducedMotion();
   const opacity = useTransform(progress, range, [0.25, 1]);
   const strongClass = tone === "light" ? "text-ink font-medium" : "text-white font-medium";
-  const softClass = tone === "light" ? "text-[#475467]" : "text-neutral-300";
+  const softClass = tone === "light" ? "text-body-soft" : "text-neutral-300";
   return (
     <motion.span style={reduceMotion ? undefined : { opacity }} className={token.strong ? strongClass : softClass}>
       {token.word}{" "}

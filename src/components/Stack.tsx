@@ -4,7 +4,7 @@ import { FadeIn } from "./motion";
 
 export function Stack() {
   return (
-    <section id="stack" className="bg-white px-5 py-24 sm:px-8 md:py-28">
+    <section id="stack" className="bg-page px-5 py-24 sm:px-8 md:py-28">
       <div className="mx-auto max-w-6xl">
         <h2 className="text-center text-[40px] leading-tight font-semibold sm:text-[48px]">
           My <span className="text-brand">Tech Stack</span>
@@ -22,7 +22,7 @@ export function Stack() {
                   {group.items.map((item) => (
                     <span
                       key={item.name}
-                      className="flex items-center gap-2 rounded-full bg-white px-3.5 py-2 text-[14px] text-ink transition-transform hover:-translate-y-0.5"
+                      className="flex items-center gap-2 rounded-full bg-white px-3.5 py-2 text-[14px] text-night transition-transform hover:-translate-y-0.5"
                     >
                       {item.icon && (
                         <Image src={`/stack/${item.icon}.svg`} alt="" width={16} height={16} className="size-4" />

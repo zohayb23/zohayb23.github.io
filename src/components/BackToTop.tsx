@@ -23,7 +23,7 @@ export function BackToTop() {
           initial={{ opacity: 0, y: 12 }}
           animate={{ opacity: 1, y: 0 }}
           exit={{ opacity: 0, y: 12 }}
-          className="fixed right-6 bottom-6 z-40 grid size-11 place-items-center rounded-full bg-brand text-white shadow-[0_10px_30px_-8px_var(--color-brand-glow)] transition-colors hover:bg-ink"
+          className="fixed right-6 bottom-6 z-40 grid size-11 place-items-center rounded-full bg-brand text-white shadow-[0_10px_30px_-8px_var(--color-brand-glow)] transition-colors hover:bg-brand-deep"
         >
           <ArrowUp className="size-4" />
         </motion.a>

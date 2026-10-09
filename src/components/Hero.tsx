@@ -17,14 +17,14 @@ function Doodle({ className }: { className?: string }) {
 
 export function Hero({ hasResume }: { hasResume: boolean }) {
   return (
-    <section id="top" className="relative overflow-hidden bg-white pt-32 md:pt-36">
+    <section id="top" className="relative overflow-hidden bg-page pt-32 md:pt-36">
       <div className="relative mx-auto max-w-6xl px-5 text-center">
         <motion.a
           href="#contact"
           initial={{ opacity: 0, y: 12 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6, ease }}
-          className="mx-auto mb-5 flex w-fit items-center gap-2 rounded-full border border-emerald-600/20 bg-emerald-50 px-4 py-1.5 text-[14px] font-medium text-emerald-800 transition-colors hover:bg-emerald-100"
+          className="mx-auto mb-5 flex w-fit items-center gap-2 rounded-full border border-emerald-600/20 bg-emerald-50 px-4 py-1.5 text-[14px] font-medium text-emerald-800 transition-colors hover:bg-emerald-100 dark:border-emerald-400/30 dark:bg-emerald-400/10 dark:text-emerald-300 dark:hover:bg-emerald-400/20"
         >
           <span className="relative flex size-2">
             <span className="absolute inline-flex size-full animate-ping rounded-full bg-emerald-500 opacity-60 motion-reduce:animate-none" />
@@ -64,7 +64,7 @@ export function Hero({ hasResume }: { hasResume: boolean }) {
           className="absolute top-16 left-5 z-10 hidden max-w-[220px] text-left lg:block"
         >
           <Quote className="size-7 fill-ink text-ink" />
-          <p className="mt-3 text-[18px] leading-snug font-medium text-[#344054]">{profile.heroQuote}</p>
+          <p className="mt-3 text-[18px] leading-snug font-medium text-body">{profile.heroQuote}</p>
         </motion.div>
 
         <motion.div
@@ -76,11 +76,11 @@ export function Hero({ hasResume }: { hasResume: boolean }) {
           <p className="text-[56px] leading-none font-bold">
             6<span className="text-brand">x</span>
           </p>
-          <p className="mt-1 text-[17px] text-[#344054]">Faster AI/ML tests at IBM</p>
+          <p className="mt-1 text-[17px] text-body">Faster AI/ML tests at IBM</p>
           <p className="mt-6 text-[36px] leading-none font-bold">
             4
           </p>
-          <p className="mt-1 text-[17px] text-[#344054]">Engineering roles</p>
+          <p className="mt-1 text-[17px] text-body">Engineering roles</p>
         </motion.div>
 
         <motion.div
@@ -132,7 +132,7 @@ export function Hero({ hasResume }: { hasResume: boolean }) {
         <a
           href="/resume.pdf"
           download
-          className="absolute right-6 bottom-6 z-10 hidden items-center gap-1.5 rounded-full border border-ink/15 bg-white px-4 py-2 text-[14px] font-medium transition-colors hover:border-brand hover:text-brand lg:flex"
+          className="absolute right-6 bottom-6 z-10 hidden items-center gap-1.5 rounded-full border border-ink/15 bg-surface px-4 py-2 text-[14px] font-medium transition-colors hover:border-brand hover:text-brand lg:flex"
         >
           <Download className="size-4" /> Resume
         </a>

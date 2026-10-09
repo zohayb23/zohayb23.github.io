@@ -1,19 +1,61 @@
 @import "tailwindcss";
 
+@custom-variant dark (&:where([data-theme="dark"], [data-theme="dark"] *));
+
 @theme inline {
   /* white on brand is 5:1; brand-light on ink is 7.7:1 (WCAG AA) */
   --color-brand: #0f62fe;
   --color-brand-deep: #0043ce;
   --color-brand-light: #78a9ff;
-  --color-brand-soft: #d0e2ff;
-  --color-brand-tint: #edf5ff;
+  --color-brand-soft: var(--brand-soft);
+  --color-brand-tint: var(--brand-tint);
   --color-brand-glow: rgb(15 98 254 / 0.5);
-  --color-ink: #171717;
+  /* ink, page, surface, mist, muted, and body flip with the theme; night and ink-soft stay dark */
+  --color-ink: var(--fg);
+  --color-night: #171717;
   --color-ink-soft: #272727;
-  --color-muted: #667085;
-  --color-mist: #f2f4f7;
+  --color-page: var(--page);
+  --color-surface: var(--surface);
+  --color-mist: var(--mist);
+  --color-muted: var(--fg-muted);
+  --color-body: var(--fg-body);
+  --color-body-soft: var(--fg-body-soft);
   --font-sans: var(--font-urbanist);
   --font-mono: var(--font-geist-mono);
+}
+
+:root {
+  --page: #ffffff;
+  --surface: #ffffff;
+  --mist: #f2f4f7;
+  --fg: #171717;
+  --fg-muted: #667085;
+  --fg-body: #344054;
+  --fg-body-soft: #475467;
+  --brand-soft: #d0e2ff;
+  --brand-tint: #edf5ff;
+  color-scheme: light;
+}
+
+[data-theme="dark"] {
+  --page: #0b0e14;
+  --surface: #161b24;
+  --mist: #131820;
+  --fg: #f2f4f7;
+  --fg-muted: #98a2b3;
+  --fg-body: #d0d5dd;
+  --fg-body-soft: #b4bcc8;
+  --brand-soft: #1c2f57;
+  --brand-tint: rgb(15 98 254 / 0.16);
+  color-scheme: dark;
+}
+
+/* #0f62fe text is under 4.5:1 on the dark page, so brand-colored text lightens */
+[data-theme="dark"] .text-brand {
+  color: var(--color-brand-light);
+}
+[data-theme="dark"] .fill-brand {
+  fill: var(--color-brand-light);
 }
 
 html {
@@ -22,8 +64,11 @@ html {
 }
 
 body {
-  background: #fff;
-  color: var(--color-ink);
+  background: var(--page);
+  color: var(--fg);
+  transition:
+    background-color 0.3s ease,
+    color 0.3s ease;
 }
 
 :focus-visible {

@@ -66,7 +66,7 @@ export function Marquee() {
   const row = [...items, ...items];
   return (
     <div className="relative my-24 overflow-hidden py-8" aria-label="Technologies I work with">
-      <div className="absolute inset-x-[-5%] top-1/2 h-20 -translate-y-1/2 rotate-[2deg] bg-ink" aria-hidden="true" />
+      <div className="absolute inset-x-[-5%] top-1/2 h-20 -translate-y-1/2 rotate-[2deg] bg-night dark:bg-brand-deep" aria-hidden="true" />
       <div className="relative -rotate-[1.5deg] bg-brand py-5">
         <div className="animate-marquee flex w-max items-center gap-10 whitespace-nowrap">
           {row.map((name, i) => (

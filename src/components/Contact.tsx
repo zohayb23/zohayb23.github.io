@@ -20,7 +20,7 @@ export function BuiltAt() {
             {builtAt.map((org) => (
               <li key={org.name} className="opacity-50 transition-opacity hover:opacity-100">
                 {org.logo ? (
-                  <Image src={org.logo} alt={org.name} width={80} height={32} className="h-7 w-auto brightness-0" />
+                  <Image src={org.logo} alt={org.name} width={80} height={32} className="h-7 w-auto brightness-0 dark:invert" />
                 ) : (
                   <span className="text-[22px] font-bold tracking-tight text-ink">{org.name}</span>
                 )}
@@ -97,9 +97,9 @@ export function Contact() {
             value={message}
             onChange={(e) => setMessage(e.target.value)}
             placeholder="What would you like to talk about? (optional)"
-            className="block w-full resize-none rounded-[28px] border border-brand/30 bg-white px-6 py-4 text-left text-[16px] outline-none placeholder:text-muted focus-visible:border-brand"
+            className="block w-full resize-none rounded-[28px] border border-brand/30 bg-surface px-6 py-4 text-left text-[16px] outline-none placeholder:text-muted focus-visible:border-brand"
           />
-          <div className="flex items-center gap-2 rounded-full border border-brand/30 bg-white p-2 shadow-[0_20px_50px_-30px_var(--color-brand-glow)] focus-within:border-brand">
+          <div className="flex items-center gap-2 rounded-full border border-brand/30 bg-surface p-2 shadow-[0_20px_50px_-30px_var(--color-brand-glow)] focus-within:border-brand">
             <span className="ml-1 grid size-11 shrink-0 place-items-center rounded-full bg-brand-tint text-brand">
               <Mail className="size-5" />
             </span>
@@ -126,7 +126,7 @@ export function Contact() {
           </div>
           <p
             role="status"
-            className={`min-h-6 text-[15px] ${status === "error" ? "text-red-700" : "text-emerald-700"}`}
+            className={`min-h-6 text-[15px] ${status === "error" ? "text-red-700 dark:text-red-400" : "text-emerald-700 dark:text-emerald-400"}`}
           >
             {status === "idle" ? "" : statusText[status]}
           </p>

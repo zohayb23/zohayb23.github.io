@@ -12,7 +12,7 @@ function Dot({ highlight }: { highlight?: boolean }) {
     <span
       className={`relative z-10 grid size-7 shrink-0 place-items-center rounded-full border-2 border-dashed ${
         highlight ? "border-brand" : "border-ink"
-      } bg-white`}
+      } bg-page`}
     >
       <span className={`size-3.5 rounded-full ${highlight ? "bg-brand" : "bg-ink"}`} />
     </span>
@@ -77,7 +77,7 @@ function ExperienceDetails({ item, defaultOpen }: { item: JourneyItem; defaultOp
                   <h4 className="text-[15px] font-semibold text-ink">{project.title}</h4>
                   <ul className="mt-2 space-y-2">
                     {project.bullets.map((bullet) => (
-                      <li key={bullet} className="flex gap-2.5 text-[15px] leading-relaxed text-[#475467]">
+                      <li key={bullet} className="flex gap-2.5 text-[15px] leading-relaxed text-body-soft">
                         <span className="mt-2.5 size-1.5 shrink-0 rounded-full bg-brand" />
                         {bullet}
                       </li>
@@ -87,7 +87,7 @@ function ExperienceDetails({ item, defaultOpen }: { item: JourneyItem; defaultOp
               ))}
               <div className="flex flex-wrap gap-1.5">
                 {item.tags.map((tag) => (
-                  <span key={tag} className="rounded-full border border-ink/10 px-3 py-1 text-[12px] text-[#475467]">
+                  <span key={tag} className="rounded-full border border-ink/10 px-3 py-1 text-[12px] text-body-soft">
                     {tag}
                   </span>
                 ))}
@@ -105,9 +105,9 @@ function CompanyBlock({ item }: { item: JourneyItem }) {
     <div className="flex flex-col md:items-end">
       <div className="flex items-center gap-3 md:flex-row-reverse">
         {item.logo ? (
-          <Image src={item.logo} alt="" width={64} height={28} className="h-6 w-auto brightness-0" />
+          <Image src={item.logo} alt="" width={64} height={28} className="h-6 w-auto brightness-0 dark:invert" />
         ) : (
-          <span className="grid size-8 place-items-center rounded-lg bg-ink text-[13px] font-bold text-white">
+          <span className="grid size-8 place-items-center rounded-lg bg-ink text-[13px] font-bold text-page">
             {item.monogram}
           </span>
         )}
@@ -122,7 +122,7 @@ function CompanyBlock({ item }: { item: JourneyItem }) {
 
 export function Journey() {
   return (
-    <section id="journey" className="bg-white px-5 py-24 sm:px-8 md:py-28">
+    <section id="journey" className="bg-page px-5 py-24 sm:px-8 md:py-28">
       <div className="mx-auto max-w-6xl">
         <h2 className="text-center text-[40px] leading-tight font-semibold sm:text-[48px]">
           My <span className="text-brand">Work Experience</span>

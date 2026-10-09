@@ -4,6 +4,7 @@ import { AnimatePresence, motion } from "motion/react";
 import { Menu, X } from "lucide-react";
 import { useEffect, useState } from "react";
 import { profile } from "@/data/profile";
+import { ThemeToggle } from "./ThemeToggle";
 
 const left = [
   { id: "top", label: "Home" },
@@ -62,7 +63,7 @@ export function Nav() {
 
   return (
     <header className="fixed inset-x-0 top-4 z-50 px-4">
-      <nav className="mx-auto flex max-w-6xl items-center justify-between rounded-full bg-ink p-2 shadow-[0_20px_40px_-20px_rgba(0,0,0,0.6)]">
+      <nav className="mx-auto flex max-w-6xl items-center justify-between rounded-full bg-night p-2 shadow-[0_20px_40px_-20px_rgba(0,0,0,0.6)] dark:ring-1 dark:ring-white/10">
         <div className="hidden flex-1 items-center md:flex">
           {left.map((l) => (
             <NavLink key={l.id} {...l} active={active === l.id} />
@@ -84,14 +85,17 @@ export function Nav() {
           ))}
         </div>
 
-        <button
-          type="button"
-          aria-label={open ? "Close menu" : "Open menu"}
-          onClick={() => setOpen((v) => !v)}
-          className="grid size-11 place-items-center rounded-full bg-brand text-white md:hidden"
-        >
-          {open ? <X className="size-5" /> : <Menu className="size-5" />}
-        </button>
+        <div className="flex items-center gap-1 md:ml-1">
+          <ThemeToggle />
+          <button
+            type="button"
+            aria-label={open ? "Close menu" : "Open menu"}
+            onClick={() => setOpen((v) => !v)}
+            className="grid size-11 place-items-center rounded-full bg-brand text-white md:hidden"
+          >
+            {open ? <X className="size-5" /> : <Menu className="size-5" />}
+          </button>
+        </div>
       </nav>
 
       <AnimatePresence>
@@ -100,7 +104,7 @@ export function Nav() {
             initial={{ opacity: 0, y: -8 }}
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: -8 }}
-            className="mx-auto mt-2 max-w-6xl overflow-hidden rounded-3xl bg-ink p-2 md:hidden"
+            className="mx-auto mt-2 max-w-6xl overflow-hidden rounded-3xl bg-night p-2 md:hidden dark:ring-1 dark:ring-white/10"
           >
             {all.map((l) => (
               <li key={l.id}>
